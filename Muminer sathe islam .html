@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Muminer Sathe Islam - Ultimate Super App Pro</title>
+
+<style>
+:root {
+  --primary: #0284c7;
+  --primary-dark: #0369a1;
+  --bg: #f1f5f9;
+  --card: #ffffff;
+  --text: #0f172a;
+  --accent: #e0f2fe;
+  --border: #cbd5e1;
+  --shadow: 0 12px 35px -5px rgba(0,0,0,0.06);
+  --border-radius: 24px;
+}
+
+body.dark {
+  --bg: #0b0f19;
+  --card: #161f30;
+  --text: #f8fafc;
+  --accent: #1e293b;
+  --border: #2e3d52;
+  --shadow: 0 12px 35px -5px rgba(0,0,0,0.5);
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding-bottom: 110px;
+}
+
+/* Premium Header */
+header {
+  background: linear-gradient(135deg, #0284c7, #015a88);
+  color: white;
+  padding: 40px 20px 30px 20px;
+  text-align: center;
+  border-radius: 0 0 35px 35px;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+header h2 { margin: 0; font-size: 26px; font-weight: 800; }
+header p { margin: 6px 0; opacity: 0.9; font-size: 13px; }
+
+.hijri-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.2);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  margin-top: 5px;
+  font-weight: 600;
+}
+
+.theme-toggle {
+  position: absolute;
+  top: 15px; right: 15px;
+  background: rgba(255,255,255,0.2);
+  border: none; color: white;
+  padding: 6px 12px; border-radius: 30px;
+  cursor: pointer; font-size: 12px;
+  backdrop-filter: blur(10px);
+}
+
+.countdown-widget {
+  background: rgba(255, 255, 255, 0.15);
+  margin-top: 15px; padding: 10px;
+  border-radius: 16px; font-size: 13px;
+  font-weight: 600; backdrop-filter: blur(8px);
+}
+
+.container { padding: 15px; max-width: 480px; margin: auto; }
+
+/* Dashboard Cards & Grid */
+.card {
+  background: var(--card);
+  padding: 20px; margin-bottom: 20px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  animation: fadeInUp 0.4s ease;
+}
+.card h3 { 
+  margin-top: 0; color: var(--primary); 
+  font-size: 19px; font-weight: 700; 
+  border-bottom: 2px solid var(--accent); 
+  padding-bottom: 10px; margin-bottom: 15px;
+}
+
+.grid-menu {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 10px; margin-bottom: 20px;
+}
+.menu-card {
+  background: linear-gradient(135deg, #e0f2fe, #bae6fd);
+  border: 1px solid rgba(2, 132, 199, 0.1);
+  padding: 15px 10px; border-radius: 20px;
+  text-align: center; cursor: pointer;
+  transition: all 0.2s ease;
+}
+body.dark .menu-card { background: linear-gradient(135deg, #1e293b, #0f172a); border-color: var(--border); }
+.menu-card:active { transform: scale(0.95); }
+.menu-card .icon { font-size: 28px; display: block; margin-bottom: 5px; }
+.menu-card .title { font-weight: 700; font-size: 14px; color: var(--text); }
+
+/* Buttons & Filters */
+.category-box { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 10px; }
+.category-box::-webkit-scrollbar { display: none; }
+button.btn {
+  border: 1px solid var(--border); padding: 10px 18px;
+  border-radius: 30px; cursor: pointer; font-size: 13px;
+  background: var(--card); color: var(--text); white-space: nowrap;
+  font-weight: 600; transition: 0.2s;
+}
+button.btn.active { background: linear-gradient(135deg, #0284c7, #0369a1); color: white; border-color: #0284c7; }
+
+.bookmark-btn {
+  background: var(--accent); border: none; color: var(--primary);
+  padding: 5px 12px; border-radius: 12px; font-size: 12px;
+  cursor: pointer; font-weight: 600; margin-top: 8px; display: inline-block;
+}
+
+/* List Styling */
+.data-item { border-left: 4px solid var(--primary); padding-left: 12px; margin-bottom: 18px; position: relative;}
+.data-item h4 { margin: 0 0 5px 0; font-size: 16px; color: var(--text); }
+.data-item p { margin: 0; font-size: 13px; opacity: 0.85; line-height: 1.5; }
+
+.arabic {
+  direction: rtl; text-align: right; font-size: 24px;
+  line-height: 2; font-family: serif; color: #0369a1; margin: 10px 0;
+}
+body.dark .arabic { color: #38bdf8; }
+.pronunciation { font-style: italic; color: #ea580c; font-size: 13px; margin-bottom: 5px; }
+
+/* Compass UI */
+.compass-container { display: flex; flex-direction: column; align-items: center; margin: 20px 0; }
+.compass {
+  width: 150px; height: 150px; border: 5px solid var(--primary);
+  border-radius: 50%; position: relative; transition: transform 0.1s ease;
+  background: var(--accent);
+}
+.compass::after {
+  content: '▲\nKaba'; position: absolute; top: 5px; left: 50%;
+  transform: translateX(-50%); color: red; font-size: 12px; font-weight: bold; text-align: center;
+}
+
+/* Tracker UI */
+.tracker-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 12px 0; border-bottom: 1px solid var(--border);
+}
+.tracker-row input { width: 22px; height: 22px; margin: 0; cursor: pointer; }
+
+/* Names Grid - Premium List Style */
+.names-list { display: flex; flex-direction: column; gap: 12px; }
+.name-full-card {
+  background: var(--card); border: 1px solid var(--border);
+  padding: 16px; border-radius: 18px; box-shadow: var(--shadow);
+  display: flex; flex-direction: column; position: relative;
+  border-left: 5px solid #10b981;
+}
+.name-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;}
+.name-num { background: var(--accent); color: var(--primary); width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; }
+.name-arabic { font-size: 26px; color: #0369a1; font-weight: bold; font-family: serif; margin: 0; }
+body.dark .name-arabic { color: #38bdf8; }
+.name-bangla { font-size: 16px; font-weight: 700; color: var(--text); margin: 0 0 4px 0;}
+.name-meaning { font-size: 13px; opacity: 0.8; margin: 0 0 6px 0; line-height: 1.4; }
+.name-fazilat { font-size: 12px; background: rgba(16, 185, 129, 0.08); color: #10b981; padding: 6px 10px; border-radius: 8px; border-left: 3px solid #10b981; font-weight: 500;}
+body.dark .name-fazilat { background: rgba(16, 185, 129, 0.15); }
+
+/* Audio Player */
+.audio-container { margin: 15px 0; background: var(--accent); padding: 12px; border-radius: 16px; text-align: center; }
+audio { width: 100%; height: 35px; }
+
+/* Bottom Nav */
+.bottom-nav {
+  display: flex; background: var(--card); position: fixed;
+  bottom: 0; left: 0; right: 0; box-shadow: 0 -10px 40px rgba(0,0,0,0.06);
+  padding: 10px 0; z-index: 100; border-radius: 20px 20px 0 0; border-top: 1px solid var(--border);
+  overflow-x: auto;
+}
+.nav-item { text-align: center; font-size: 10px; color: #64748b; cursor: pointer; min-width: 65px; flex: 1; }
+.nav-item span { font-size: 20px; display: block; margin-bottom: 2px; }
+.nav-item.active { color: var(--primary); font-weight: 700; }
+
+.page { display: none; }
+.page.active { display: block; }
+.sub-content { display: none; }
+.sub-content.active { display: block; }
+
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+select, input[type="text"], input[type="number"] { width: 100%; padding: 12px; border-radius: 12px; border: 1px solid var(--border); background: var(--card); color: var(--text); box-sizing: border-box; margin-bottom: 12px; }
+
+/* Tasbih & Namaz Times Custom */
+.counter-display { font-size: 60px; font-weight: 800; text-align: center; margin: 10px 0; color: var(--primary); }
+.tasbih-btn-grid { display: flex; gap: 10px; }
+.tasbih-btn-grid button { flex: 1; padding: 14px; border-radius: 12px; border: none; font-size: 15px; font-weight: 700; cursor: pointer; }
+.namaz-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 10px; }
+.namaz-time-card { background: var(--card); padding: 14px; border-radius: 14px; display: flex; justify-content: space-between; border: 1px solid var(--border); }
+.namaz-time-card.current-prayer { background: var(--accent); border-color: var(--primary); font-weight: bold; }
+
+/* Zakat CSS */
+.zakat-result { background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; padding: 12px; border-radius: 12px; margin-top: 15px; display: none; }
+.zakat-result p { margin: 5px 0; font-size: 14px; font-weight: 600; }
+
+/* Holy Days List Styling */
+.day-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed var(--border); font-size: 13px; }
+</style>
+</head>
+<body>
+
+<header>
+  <button class="theme-toggle" onclick="toggleTheme()">🌓 থিম</button>
+  <h2>🌙 মুমিনের সাথে ইসলাম</h2>
+  <div class="hijri-badge" id="hijri-date">লোডিং হিজরি তারিখ...</div>
+  <div class="countdown-widget" id="live-countdown">নামাজের লাইভ হিসাব আসছে...</div>
+</header>
+
+<div class="container">
+
+  <!-- HOME PAGE -->
+  <div id="home" class="page active">
+    <div class="grid-menu">
+      <div class="menu-card" onclick="openSectionFromHome('hadis')"><span class="icon">📖</span><span class="title">হাদিস</span></div>
+      <div class="menu-card" onclick="openSectionFromHome('masala')"><span class="icon">⚖️</span><span class="title">মাসআলা</span></div>
+      <div class="menu-card" onclick="openSectionFromHome('dua')"><span class="icon">🤲</span><span class="title">দোয়া</span></div>
+      <div class="menu-card" onclick="openSectionFromHome('quran')"><span class="icon">📘</span><span class="title">কুরআন</span></div>
+      <div class="menu-card" onclick="openSectionFromHome('names')"><span class="icon">✨</span><span class="title">আল্লাহর ৯৯ নাম</span></div>
+      <div class="menu-card" onclick="openSectionFromHome('tracker')"><span class="icon">📊</span><span class="title">ইবাদত ট্র্যাকার</span></div>
+      <div class="menu-card" onclick="openSectionFromHome('zakat')"><span class="icon">💰</span><span class="title">জাকাত ক্যালকুলেটর</span></div>
+      <div class="menu-card" onclick="openSectionFromHome('qibla')"><span class="icon">🧭</span><span class="title">কিবলা কম্পাস</span></div>
+    </div>
+
+    <!-- HOLY ISLAMIC DAYS LIST -->
+    <div class="card">
+      <h3>📅 গুরুত্বপূর্ণ ইসলামিক দিনসমূহ</h3>
+      <div class="day-row"><span>🌙 পবিত্র রমজান মাস</span><span style="color:var(--primary); font-weight:bold;">১ রমজান</span></div>
+      <div class="day-row"><span>✨ শবে কদর (লাইলাতুল কদর)</span><span style="color:var(--primary); font-weight:bold;">২৭ রমজান</span></div>
+      <div class="day-row"><span>🎉 ঈদুল ফিতর</span><span style="color:var(--primary); font-weight:bold;">১ শাওয়াল</span></div>
+      <div class="day-row"><span>🕋 পবিত্র হজ</span><span style="color:var(--primary); font-weight:bold;">৯ জিলহজ</span></div>
+      <div class="day-row"><span>🥩 ঈদুল আযহা</span><span style="color:var(--primary); font-weight:bold;">১০ জিলহজ</span></div>
+      <div class="day-row"><span>🕌 পবিত্র আশুরা</span><span style="color:var(--primary); font-weight:bold;">১০ মহররম</span></div>
+    </div>
+
+    <div class="card">
+      <h3>✨ আজকের অনুপ্রেরণা</h3>
+      <p style="font-size: 15px; line-height: 1.6; margin: 0;">"নিশ্চয়ই কষ্টের সাথেই স্বস্তি রয়েছে।" <br><small>— সূরা আল-ইনশিরাহ (আয়াত: ৫)</small></p>
+    </div>
+  </div>
+
+  <!-- HADIS PAGE -->
+  <div id="hadis" class="page">
+    <div class="category-box">
+      <button class="btn active" onclick="switchSub('hadis', 'h-iman', this)">ঈমান ও নিয়ত</button>
+      <button class="btn" onclick="switchSub('hadis', 'h-namaz', this)">নামাজ</button>
+      <button class="btn" onclick="switchSub('hadis', 'h-akhlaq', this)">চরিত্র</button>
+    </div>
+  <!-- ঈমান ও নিয়ত ক্যাটাগরি -->
+<div id="h-iman" class="sub-content active">
+  <div class="card">
+    <h3>📜 ঈমান সম্পর্কিত হাদিস</h3>
+    <div class="data-item">
+      <h4>১. আমলের আসল ভিত্তি</h4>
+      <p>“নিশ্চয়ই সকল কাজ নিয়তের উপর নির্ভরশীল।” (বুখারী: ১)</p>
+      <button class="bookmark-btn" onclick="saveBookmark('হাদিস: নিয়তের ওপর আমল')">📌 Bookmark</button>
+    </div>
+    <div class="data-item">
+      <h4>২. প্রকৃত মুসলিমের পরিচয়</h4>
+      <p>“প্রকৃত মুসলিম সেই ব্যক্তি, যার জিহ্বা ও হাত থেকে অন্য মুসলিম নিরাপদ থাকে।” (বুখারী: ১০)</p>
+      <button class="bookmark-btn" onclick="saveBookmark('হাদিস: মুসলিমের পরিচয়')">📌 Bookmark</button>
+    </div>
+  </div>
+</div>
+
+<!-- নামাজ ক্যাটাগরি -->
+<div id="h-namaz" class="sub-content">
+  <div class="card">
+    <h3>📜 নামাজ সম্পর্কিত হাদিস</h3>
+    <div class="data-item">
+      <h4>১. চোখের শীতলতা</h4>
+      <p>“আমার চোখের শীতলতা রাখা হয়েছে নামাজের মধ্যে।” (নাসাঈ)</p>
+      <button class="bookmark-btn" onclick="saveBookmark('হাদিস: চোখের শীতলতা নামাজ')">📌 Bookmark</button>
+    </div>
+  </div>
+</div>
+
+<!-- চরিত্র ক্যাটাগরি -->
+<div id="h-akhlaq" class="sub-content">
+  <div class="card">
+    <h3>📜 চরিত্র</h3>
+    <div class="data-item">
+      <h4>১. উত্তম চরিত্র</h4>
+      <p>“কিয়ামতের দিন উত্তম চরিত্রের চেয়ে ভারী আর কোনো আমল থাকবে না।” (তিরমিযী)</p>
+      <button class="bookmark-btn" onclick="saveBookmark('হাদিস: উত্তম চরিত্র মিযানের ভারী আমল')">📌 Bookmark</button>
+    </div>
+  </div>
+</div>
+  <!-- MASALA PAGE -->
+  <div id="masala" class="page">
+    <div class="category-box">
+      <button class="btn active" onclick="switchSub('masala', 'm-pobitro', this)">ওযু ও পবিত্রতা</button>
+      <button class="btn" onclick="switchSub('masala', 'm-namazMasala', this)">নামাজ</button>
+    </div>
+    <div id="m-pobitro" class="sub-content active">
+      <div class="card">
+        <h3>⚖️ পবিত্রতার হুকুম</h3>
+        <div class="data-item">
+          <h4>রক্ত বের হলে কি ওযু ভাঙে?</h4>
+          <p>শরীর থেকে রক্ত বের হয়ে গড়িয়ে পড়লে ওযু ভেঙে যাবে।</p>
+          <button class="bookmark-btn" onclick="saveBookmark('মাসআলা: রক্ত বের হলে ওযু ভাঙা')">📌 Bookmark</button>
+        </div>
+      </div>
+    </div>
+    <div id="m-namazMasala" class="sub-content">
+      <div class="card">
+        <h3>⚖️ নামাজের মাসআলা</h3>
+        <div class="data-item">
+          <h4>সাহু সিজদা কখন ওয়াজিব হয়?</h4>
+          <p>নামাজে কোনো ওয়াজিব কাজ ভুলবশত বাদ পড়লে সাহু সিজদা দেওয়া ওয়াজিব।</p>
+          <button class="bookmark-btn" onclick="saveBookmark('মাসআলা: সাহু সিজদার নিয়ম')">📌 Bookmark</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DUA PAGE -->
+  <div id="dua" class="page">
+    <div class="card">
+      <h3>🤲 নিত্যদিনের প্রয়োজনীয় দোয়া</h3>
+      <div class="data-item">
+        <h4>১. বিপদ মুক্তির দোয়া (আয়াতু ইউনুস)</h4>
+        <p class="arabic">لَا إِلٰهَ إِلَّا أَنْتَ سُبْحَانَكَ إِنِّي كُنْتُ مِنَ الظَّالِمِينَ</p>
+        <p class="pronunciation">লা ইলাহা ইলা আন্তা সুবহানাকা ইন্নি কুন্তু মিনাজ জোয়ালিমীন।</p>
+        <button class="bookmark-btn" onclick="saveBookmark('দোয়া: আয়াতু ইউনুস (বিপদ মুক্তি)')">📌 Bookmark</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- QURAN PAGE -->
+  <div id="quran" class="page">
+    <div class="card">
+      <h3>📘 আল-কুরআন ও লাইভ অডিও</h3>
+      <select id="surahSelect" onchange="loadSurah()"><option value="">একটি সূরা নির্বাচন করুন</option></select>
+      <div id="audioPlayerBox" class="audio-container" style="display:none;">
+        <p id="audioTitle" style="margin:0 0 10px 0; font-size:13px; font-weight:700; color:var(--primary);"></p>
+        <audio id="quranAudio" controls preload="none"></audio>
+      </div>
+      <input type="text" id="search" placeholder="অনুবাদ দিয়ে খুঁজুন..." oninput="searchQuran(this.value)">
+      <div id="quranText"></div>
+    </div>
+  </div>
+
+  <!-- ALLAH'S 99 NAMES PAGE -->
+  <div id="names" class="page">
+    <div class="card">
+      <h3>✨ আল্লাহর পবিত্র ৯৯টি গুণবাচক নাম</h3>
+      <p style="font-size:12px; opacity:0.8; margin-bottom:15px; line-height:1.4;">রাসূলুল্লাহ (সা.) বলেছেন: "নিশ্চয়ই আল্লাহর ৯৯টি নাম রয়েছে, যে ব্যক্তি এগুলো মুখস্থ করবে বা আয়ত্তে রাখবে, সে জান্নাতে প্রবেশ করবে।" (সহীহ বুখারী)</p>
+      <input type="text" id="searchName" placeholder="বাংলা বা আরবি নাম দিয়ে খুঁজুন..." oninput="filterNames(this.value)">
+      <div class="names-list" id="namesContainer">
+        <!-- Loaded fully by JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- IBADAT TRACKER PAGE -->
+  <div id="tracker" class="page">
+    <div class="card">
+      <h3>📊 দৈনিক ইবাদত ট্র্যাকার</h3>
+      <p style="font-size:12px; opacity:0.8;">আজকের সালাত আদায় ট্র্যাক করুন:</p>
+      <div class="tracker-row"><span>🌅 ফজর (Fajr)</span><input type="checkbox" id="fajr_t" onclick="saveTracker()"></div>
+      <div class="tracker-row"><span>☀️ যোহর (Dhuhr)</span><input type="checkbox" id="dhuhr_t" onclick="saveTracker()"></div>
+      <div class="tracker-row"><span>🌤️ আসর (Asr)</span><input type="checkbox" id="asr_t" onclick="saveTracker()"></div>
+      <div class="tracker-row"><span>🌌 মাগরিব (Maghrib)</span><input type="checkbox" id="maghrib_t" onclick="saveTracker()"></div>
+      <div class="tracker-row"><span>🌃 এশা (Isha)</span><input type="checkbox" id="isha_t" onclick="saveTracker()"></div>
+    </div>
+  </div>
+
+  <!-- ZAKAT CALCULATOR PAGE -->
+  <div id="zakat" class="page">
+    <div class="card">
+      <h3>💰 জাকাত ক্যালকুলেটর</h3>
+      <p style="font-size:12px; opacity:0.8; margin-bottom:12px;">আপনার মোট সম্পদ হিসাব করে জাকাতের পরিমাণ জানুন (নিসাব সাপেক্ষে ২.৫% জাকাত প্রযোজ্য)।</p>
+      
+      <label style="font-size:13px; font-weight:600;">নগদ টাকা (ব্যাংক ও হাতে জমাকৃত):</label>
+      <input type="number" id="zakatCash" placeholder="টাকার পরিমাণ লিখুন..." oninput="calcZakat()">
+
+      <label style="font-size:13px; font-weight:600;">সোনা বা স্বর্ণের মূল্য (টাকায়):</label>
+      <input type="number" id="zakatGold" placeholder="স্বর্ণের সমপরিমাণ মূল্য লিখুন..." oninput="calcZakat()">
+
+      <label style="font-size:13px; font-weight:600;">রুপা বা রৌপ্যের মূল্য (টাকায়):</label>
+      <input type="number" id="zakatSilver" placeholder="রুপার সমপরিমাণ মূল্য লিখুন..." oninput="calcZakat()">
+
+      <label style="font-size:13px; font-weight:600;">ব্যবসায়িক পণ্যের মোট মূল্য:</label>
+      <input type="number" id="zakatBusiness" placeholder="পণ্যের মূল্য লিখুন..." oninput="calcZakat()">
+
+      <div class="zakat-result" id="zakatResultBox">
+        <p style="color:#10b981;">💰 আপনার মোট জাকাতযোগ্য সম্পদ: <span id="totalAsset">০</span> টাকা</p>
+        <p style="color:#0284c7; font-size:16px;">✨ প্রদেয় জাকাতের পরিমাণ (২.৫%): <span id="finalZakat">০</span> টাকা</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- QIBLA COMPASS PAGE -->
+  <div id="qibla" class="page">
+    <div class="card" style="text-align:center;">
+      <h3>🧭 ডিজিটাল কিবলা কম্পাস</h3>
+      <p style="font-size:13px; opacity:0.8;">ফোনটি সোজা সমতল মেঝেতে রাখুন। লাল তীরটি কাবার সঠিক দিক নির্দেশ করবে (সেন্সর সাপেক্ষে)।</p>
+      <div class="compass-container">
+        <div class="compass" id="compassDisc"></div>
+      </div>
+      <p id="compassStatus" style="font-size:12px; color:orange;"></p>
+    </div>
+  </div>
+
+  <!-- TASBIH PAGE -->
+  <div id="tasbih" class="page">
+    <div class="card">
+      <h3>🔢 ডিজিটাল স্মার্ট তসবীহ প্লাস</h3>
+      
+      <label style="font-size:12px; font-weight:600;">জিকির নির্বাচন করুন:</label>
+      <select id="tasbihPreset" onchange="changePreset()">
+        <option value="সুবহানাল্লাহ">سُبْحَانَ اللهِ (সুবহানাল্লাহ)</option>
+        <option value="আলহামদুলিল্লাহ">الْحَمْدُ لِلهِ (আলহামদুলিল্লাহ)</option>
+        <option value="আল্লাহু আকবার">اللهُ أَكْبَرُ (আল্লাহু আকবার)</option>
+        <option value="লা ইলাহা ইল্লাল্লাহ">لَا إِلٰهَ إِلَّا اللهُ (লা ইলাহা ইল্লাল্লাহ)</option>
+        <option value="আস্তাগফিরুল্লাহ">أَسْتَغْفِرُ اللهَ (আস্তাগফিরুল্লাহ)</option>
+      </select>
+
+      <label style="font-size:12px; font-weight:600;">টার্গেট সীমা:</label>
+      <select id="tasbihTarget">
+        <option value="33">৩৩ বার</option>
+        <option value="34">৩৪ বার</option>
+        <option value="100">১০০ বার</option>
+        <option value="unlimited">আনলিমিটেড</option>
+      </select>
+
+      <div class="counter-display" id="count">0</div>
+      <p id="targetAlert" style="text-align:center; color:#10b981; font-weight:bold; height:15px; margin:0 0 10px 0;"></p>
+
+      <div class="tasbih-btn-grid">
+        <button style="background: linear-gradient(135deg, #0284c7, #0369a1); color:white; flex: 2;" onclick="inc()">জিকির (+)</button>
+        <button style="background:#ef4444; color:white;" onclick="resetCount()">রিসেট</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAMAZ PAGE -->
+  <div id="namaz" class="page">
+    <div class="card">
+      <h3>🕌 নামাজের সময়সূচী (ঢাকা)</h3>
+      <div id="times" class="namaz-grid">লোডিং...</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- BOTTOM NAVIGATION BAR -->
+<div class="bottom-nav">
+  <div class="nav-item active" id="nav-home" onclick="showPage('home', this)"><span>🏠</span>হোম</div>
+  <div class="nav-item" id="nav-hadis" onclick="showPage('hadis', this)"><span>📖</span>হাদিস</div>
+  <div class="nav-item" id="nav-masala" onclick="showPage('masala', this)"><span>⚖️</span>মাসআলা</div>
+  <div class="nav-item" id="nav-dua" onclick="showPage('dua', this)"><span>🤲</span>দোয়া</div>
+  <div class="nav-item" id="nav-quran" onclick="showPage('quran', this)"><span>📘</span>کুরআন</div>
+  <div class="nav-item" id="nav-tasbih" onclick="showPage('tasbih', this)"><span>🔢</span>তসবীহ</div>
+  <div class="nav-item" id="nav-namaz" onclick="showPage('namaz', this)"><span>🕌</span>নামাজ</div>
+</div>
+
+<script>
+let timings = {};
+let bookmarks = JSON.parse(localStorage.getItem('islamic_bookmarks')) || [];
+
+/* PAGE SWITCHER */
+function showPage(id, el) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const target = document.getElementById(id);
+  if(target) target.classList.add('active');
+
+  document.querySelectorAll('.nav-nav-item, .nav-item').forEach(n => n.classList.remove('active'));
+  
+  if(el) {
+    el.classList.add('active');
+  } else {
+    const navBtn = document.getElementById('nav-' + id);
+    if(navBtn) navBtn.classList.add('active');
+  }
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function openSectionFromHome(sectionId) {
+  showPage(sectionId, null);
+}
+
+function switchSub(pageId, subId, btn) {
+  document.querySelectorAll(`#${pageId} .sub-content`).forEach(sc => sc.classList.remove('active'));
+  document.getElementById(subId).classList.add('active');
+  document.querySelectorAll(`#${pageId} .category-box .btn`).forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function toggleTheme() { document.body.classList.toggle('dark'); }
+
+/* HIJRI DATE & NAMAZ API */
+fetch("https://api.aladhan.com/v1/timingsByCity?city=Dhaka&country=Bangladesh&method=2")
+  .then(r => r.json())
+  .then(d => {
+    timings = d.data.timings;
+    const hj = d.data.date.hijri;
+    document.getElementById("hijri-date").innerText = `📅 ${hj.day} ${hj.month.en} ${hj.year} হিজরি`;
+    renderNamazTimes();
+    startCountdown();
+  }).catch(err => {
+    document.getElementById("hijri-date").innerText = "📅 হিজরি তারিখ লোড করা যায়নি";
+  });
+
+function renderNamazTimes() {
+  const timesBox = document.getElementById("times");
+  if(timesBox) {
+    timesBox.innerHTML = `
+      <div class="namaz-time-card" id="card-Fajr"><span>ফজর</span><span>${timings.Fajr}</span></div>
+      <div class="namaz-time-card" id="card-Dhuhr"><span>যোহর</span><span>${timings.Dhuhr}</span></div>
+      <div class="namaz-time-card" id="card-Asr"><span>আসর</span><span>${timings.Asr}</span></div>
+      <div class="namaz-time-card" id="card-Maghrib"><span>মাগরিব</span><span>${timings.Maghrib}</span></div>
+      <div class="namaz-time-card" id="card-Isha"><span>এশা</span><span>${timings.Isha}</span></div>
+    `;
+  }
+}
+
+function startCountdown() {
+  setInterval(() => {
+    if (!timings.Fajr) return;
+    const now = new Date();
+    const prayers = [
+      { name: 'ফজর', time: timings.Fajr, id: 'Fajr' },
+      { name: 'যোহর', time: timings.Dhuhr, id: 'Dhuhr' },
+      { name: 'আসর', time: timings.Asr, id: 'Asr' },
+      { name: 'মাগরিব', time: timings.Maghrib, id: 'Maghrib' },
+      { name: 'এশা', time: timings.Isha, id: 'Isha' }
+    ];
+    let nextPrayer = null; let minDiff = Infinity;
+    prayers.forEach(p => {
+      const pTime = new Date(); const [h, m] = p.time.split(':'); pTime.setHours(h, m, 0);
+      let diff = pTime - now;
+      if (diff > 0 && diff < minDiff) { minDiff = diff; nextPrayer = p; }
+      const card = document.getElementById('card-' + p.id); if(card) card.classList.remove('current-prayer');
+    });
+    if (!nextPrayer) {
+      nextPrayer = prayers[0]; const pTime = new Date(); const [h, m] = nextPrayer.time.split(':');
+      pTime.setDate(pTime.getDate() + 1); pTime.setHours(h, m, 0); minDiff = pTime - now;
+    }
+    const activeCard = document.getElementById('card-' + nextPrayer.id); if(activeCard) activeCard.classList.add('current-prayer');
+    const hrs = String(Math.floor((minDiff / (1000 * 60 * 60)) % 24)).padStart(2, '0');
+    const mins = String(Math.floor((minDiff / (1000 * 60)) % 60)).padStart(2, '0');
+    const secs = String(Math.floor((minDiff / 1000) % 60)).padStart(2, '0');
+    document.getElementById("live-countdown").innerText = `⌛ পরবর্তী ওয়াক্ত: ${nextPrayer.name} (বাকি ${hrs}:${mins}:${secs})`;
+  }, 1000);
+}
+
+/* TASBIH UPGRADED CODE */
+let count = 0;
+function inc() { 
+  count++; 
+  document.getElementById("count").innerText = count; 
+  
+  if(navigator.vibrate) navigator.vibrate(30);
+
+  const target = document.getElementById("tasbihTarget").value;
+  if(target !== "unlimited") {
+    const targetNum = parseInt(target);
+    if(count === targetNum) {
+      if(navigator.vibrate) navigator.vibrate([100, 50, 100]); 
+      document.getElementById("targetAlert").innerText = `🎉 আলহামদুলিল্লাহ, ${targetNum} বার পূর্ণ হয়েছে!`;
+    } else if (count > targetNum) {
+      document.getElementById("targetAlert").innerText = "";
+    }
+  }
+}
+function changePreset() { resetCount(); }
+function resetCount() { 
+  count = 0; 
+  document.getElementById("count").innerText = 0; 
+  document.getElementById("targetAlert").innerText = "";
+}
+
+/* ZAKAT CALCULATOR LOGIC */
+function calcZakat() {
+  const cash = parseFloat(document.getElementById("zakatCash").value) || 0;
+  const gold = parseFloat(document.getElementById("zakatGold").value) || 0;
+  const silver = parseFloat(document.getElementById("zakatSilver").value) || 0;
+  const biz = parseFloat(document.getElementById("zakatBusiness").value) || 0;
+
+  const total = cash + gold + silver + biz;
+  
+  if (total > 0) {
+    document.getElementById("zakatResultBox").style.display = "block";
+    document.getElementById("totalAsset").innerText = total.toLocaleString('bn-BD');
+    const zakatAmount = total * 0.025;
+    document.getElementById("finalZakat").innerText = zakatAmount.toLocaleString('bn-BD');
+  } else {
+    document.getElementById("zakatResultBox").style.display = "none";
+  }
+}
+
+/* BOOKMARK SYSTEM */
+function saveBookmark(text) {
+  if(!bookmarks.includes(text)) {
+    bookmarks.push(text);
+    localStorage.setItem('islamic_bookmarks', JSON.stringify(bookmarks));
+    alert("বুকমার্ক যুক্ত হয়েছে!");
+  } else { alert("এটি ইতিমধ্যে বুকমার্ক করা আছে।"); }
+}
+
+/* TRACKER */
+function saveTracker() {
+  const obj = {
+    fajr: document.getElementById("fajr_t").checked,
+    dhuhr: document.getElementById("dhuhr_t").checked,
+    asr: document.getElementById("asr_t").checked,
+    maghrib: document.getElementById("maghrib_t").checked,
+    isha: document.getElementById("isha_t").checked,
+  };
+  localStorage.setItem('islamic_tracker', JSON.stringify(obj));
+}
+function loadTracker() {
+  const saved = JSON.parse(localStorage.getItem('islamic_tracker'));
+  if(saved) {
+    if(document.getElementById("fajr_t")) document.getElementById("fajr_t").checked = saved.fajr || false;
+    if(document.getElementById("dhuhr_t")) document.getElementById("dhuhr_t").checked = saved.dhuhr || false;
+    if(document.getElementById("asr_t")) document.getElementById("asr_t").checked = saved.asr || false;
+    if(document.getElementById("maghrib_t")) document.getElementById("maghrib_t").checked = saved.maghrib || false;
+    if(document.getElementById("isha_t")) document.getElementById("isha_t").checked = saved.isha || false;
+  }
+}
+
+/* QIBLA COMPASS */
+if (window.DeviceOrientationEvent) {
+  window.addEventListener('deviceorientation', function(e) {
+    let heading = e.webkitCompassHeading || Math.abs(e.alpha - 360);
+    let qiblaDirection = 260; 
+    let targetRotation = qiblaDirection - heading;
+    const compassDisc = document.getElementById("compassDisc");
+    if(compassDisc) compassDisc.style.transform = `rotate(${targetRotation}deg)`;
+    const status = document.getElementById("compassStatus");
+    if(status) status.innerText = "কম্পাস একটিভ আছে";
+  });
+} else { 
+  const status = document.getElementById("compassStatus");
+  if(status) status.innerText = "আপনার ডিভাইসে কম্পাস সেন্সর পাওয়া যায়নি।"; 
+}
+
+/* ALLAH'S COMPLETE 99 NAMES DATA WITH FAZILAT */
+const namesData = [
+  {id: 1, ar: 'الله', bn: 'আল্লাহ', meaning: 'একমাত্র মাবুদ বা উপাস্য যার কোনো শরিক নেই।', fazilat: 'প্রতিদিন ১০০০ বার জিকির করলে অন্তরের সমস্ত সন্দেহ ও কুচিন্তা দূর হয়।'},
+  {id: 2, ar: 'الرَّحْمَنُ', bn: 'আর-রহমান', meaning: 'পরম দয়ালু (যিনি পৃথিবীর সকল সৃষ্টিকে দয়া করেন)।', fazilat: 'প্রত্যেক ফরজ নামাজের পর ১০০ বার পাঠ করলে মন নরম হয় এবং স্মৃতিশক্তি বাড়ে।'},
+  {id: 3, ar: 'الرَّحِيمُ', bn: 'আর-রাহীম', meaning: 'অতিশয় মেহেরবান (যিনি পরকালে কেবল মুমিনদের দয়া করবেন)।', fazilat: 'প্রতিদিন ফজরের পর ১০০ বার পড়লে সমস্ত দুনিয়াবি বিপদ-আপদ থেকে রক্ষা পাওয়া যায়।'},
+  {id: 4, ar: 'الْمَلِকُ', bn: 'আল-মালিক', meaning: 'সর্বাধিপতি বা প্রকৃত রাজাধিরাজ।', fazilat: 'প্রতিদিন জোহরের নামাজের পর নিয়মিত পড়লে আল্লাহ তাকে পরমুখাপেক্ষী করেন না।'},
+  {id: 5, ar: 'الْقُدُّوسُ', bn: 'আল-কুদ্দুস', meaning: 'নিষ্কলঙ্ক, অত্যন্ত পবিত্র ও ত্রুটিমুক্ত।', fazilat: 'সফর বা যাত্রাপথে বেশি বেশি পাঠ করলে সমস্ত রকম ভীতি ও মানসিক অশান্তি কেটে যায়।'},
+  {id: 6, ar: 'السَّلاَمُ', bn: 'আস-সালাম', meaning: 'শান্তি ও নিরাপত্তা দাতা।', fazilat: 'কোনো অসুস্থ মানুষের পাশে বসে এটি ১৬০ বার পাঠ করলে আল্লাহ তাকে সুস্থতা দান করেন।'},
+  {id: 7, ar: 'الْمُؤْمِنُ', bn: 'আল-মুমিন', meaning: 'ঈমান ও নিরাপত্তা দানকারী।', fazilat: 'ভয়ের সময় বা বিপদে এটি বেশি বেশি পড়লে জানমাল ও ইজ্জতের নিরাপত্তা লাভ হয়।'},
+  {id: 8, ar: 'الْمُهَيْمِنُ', bn: 'আল-মুহাইমিন', meaning: 'মহিমান্বিত রক্ষক ও অভিভাবক।', fazilat: 'ওযু করার পর ১০০ বার পাঠ করলে অন্তরের গোপন নূর ও পবিত্রতা বৃদ্ধি পায়।'},
+  {id: 9, ar: 'الْعَزِيزُ', bn: 'আল-আযীয', meaning: 'মহাপরাক্রমশালী ও অপরাজিত।', fazilat: '৪০ দিন পর্যন্ত ফজরের পর ৪১ বার পাঠ করলে মানুষের কাছে সম্মান ও আত্মমর্যাদা বাড়ে।'},
+  {id: 10, ar: 'الْجَبَّبارُ', bn: 'আল-জাব্বার', meaning: 'মহাপ্রতাপশালী বা সবকিছুর ওপর নিয়ন্ত্রণকারী।', fazilat: 'সকাল-সন্ধ্যা ২২ বার পাঠ করলে অত্যাচারী বা জালেমের ক্ষতি থেকে নিরাপদে থাকা যায়।'},
+  {id: 11, ar: 'الْمُتَكَبِّرُ', bn: 'আল-মুতাকাব্বির', meaning: 'সর্বশ্রেষ্ঠ, অহংকারের প্রকৃত অধিকারী।', fazilat: 'স্ত্রী সহবাসের পূর্বে এই নাম পাঠ করলে আল্লাহ নেক ও সৎ সন্তান দান করেন।'},
+  {id: 12, ar: 'الْخَالِقُ', bn: 'আল-খালিক', meaning: 'সৃষ্টিকর্তা (যিনি শূন্য থেকে সৃষ্টি করেন)।', fazilat: 'মাঝরাতে এই নাম পাঠ করলে আল্লাহ অন্তরে হেদায়েতের আলো এবং চেহারায় উজ্জ্বলতা দেন।'},
+  {id: 13, ar: 'الْبَارِئُ', bn: 'আল-বারি', meaning: 'সঠিক অবয়ব দানকারী বা প্রাণদাতা।', fazilat: 'অসুস্থ ব্যক্তি নিয়মিত জিকির করলে কঠিন রোগব্যাধি থেকে দ্রুত মুক্তি মেলে।'},
+  {id: 14, ar: 'الْمُصَوِّرُ', bn: 'আল-মুসাব্বির', meaning: 'রূপদানকারী (যিনি নিখুঁত আকৃতি দেন)।', fazilat: 'সন্তানহীন নারী ৭ দিন রোজা রেখে ইফতারের সময় ২১ বার পড়লে নেক সন্তান লাভ হয়।'},
+  {id: 15, ar: 'الْغَفَّارُ', bn: 'আল-গাফফার', meaning: 'পরম ক্ষমাশীল (যিনি বারবার ক্ষমা করেন)।', fazilat: 'জুমার নামাজের পর ১০০ বার পাঠ করলে গুনাহ মাফ হয় এবং রিজিকের অভাব দূর হয়।'},
+  {id: 16, ar: 'الْقَهَّارُ', bn: 'আল-কাহহার', meaning: 'মহাদমনকারী (যাঁর শক্তির সামনে সবাই নত)।', fazilat: 'দুনিয়ার মোহ ত্যাগ করতে এবং মন থেকে কুচিন্তা দূর করতে এটি বেশি পড়তে হয়।'},
+  {id: 17, ar: 'الْوَهَّابُ', bn: 'আল-ওয়াহহাব', meaning: 'মহা দাতা (যিনি প্রতিদান ছাড়াই দান করেন)।', fazilat: 'চাশতের নামাজের সেজদায় ৭ বার পাঠ করলে অভাব অনটন দূর হয়ে ধনী হওয়া যায়।'},
+  {id: 18, ar: 'الرَّجَّاقُ', bn: 'আর-রাজ্জাক', meaning: 'রিজিকদাতা বা জীবিকা প্রদানকারী।', fazilat: 'সকালে ঘরের চার কোণায় ১০ বার করে ফুঁ দিলে ঘরে বরকত ও রিজিক বৃদ্ধি পায়।'},
+  {id: 19, ar: 'الْفَتَّاحُ', bn: 'আল-ফাত্তাহ', meaning: 'বিজয়দানকারী বা বন্ধ দুয়ার উন্মোচনকারী।', fazilat: 'ফজরের পর দুই হাত বুকের ওপর রেখে ৭০ বার পড়লে মনের অলসতা ও অন্ধকার দূর হয়।'},
+  {id: 20, ar: 'الْعَلِيمُ', bn: 'আল-আলীম', meaning: 'সর্বজ্ঞ বা মহাজ্ঞানী (যিনি সবকিছু জানেন)।', fazilat: 'নিয়মিত জিকির করলে আল্লাহ তাআলা ইলম, প্রজ্ঞা ও আধ্যাত্মিক জ্ঞান বাড়িয়ে দেন।'},
+  {id: 21, ar: 'الْقَابِضُ', bn: 'আল-কাবিদ', meaning: 'সংকোচনকারী (যিনি রিজিক বা প্রাণ সংকুচিত করেন)।', fazilat: 'ক্ষুধার্ত বা অভাবী ব্যক্তি এটি নিয়মিত কাগজে লিখে সঙ্গে রাখলে অভাব দূর হয়।'},
+  {id: 22, ar: 'الْبَاسِطُ', bn: 'আল-বাসিত', meaning: 'সম্প্রসারণকারী (যিনি রিজিক ও দয়া বাড়িয়ে দেন)।', fazilat: 'চাশতের নামাজের পর হাত তুলে ১০ বার পড়ে মুখে হাত বুলালে সচ্ছলতা আসে।'},
+  {id: 23, ar: 'الْخَافِضُ', bn: 'আল-খাফিদ', meaning: 'অবানতকারী (যিনি অহংকারীদের নিচু করেন)।', fazilat: 'প্রতিদিন ৫০০ বার পাঠ করলে শত্রুর চক্রান্ত নস্যাৎ হয় এবং মনের আশা পূরণ হয়।'},
+  {id: 24, ar: 'الرَّافِعُ', bn: 'আর-রাফি', meaning: 'উন্নতকারী (যিনি মুমিনদের মর্যাদা বাড়ান)।', fazilat: 'চাঁদের ১৪ তম রাতে মাঝরাতে ১০০ বার পাঠ করলে সমাজে সম্মান ও পদোন্নতি মেলে।'},
+  {id: 25, ar: 'الْمُعِزُّ', bn: 'আল-মুইয', meaning: 'সম্মানদাতা (যিনি যাকে ইচ্ছা ইজ্জত দেন)।', fazilat: 'মাগরিবের নামাজের পর ১৪০ বার পাঠ করলে মানুষের চোখে তার সম্মান বেড়ে যায়।'},
+  {id: 26, ar: 'الْمُذِلُّ', bn: 'আল-মুজিল', meaning: 'অপমানকারী (যিনি অবাধ্যদের লাঞ্ছিত করেন)।', fazilat: '৭৫ বার পাঠ করে সেজদায় গিয়ে দোয়া করলে জালেমের ভয় থেকে মুক্তি পাওয়া যায়।'},
+  {id: 27, ar: 'السَّمِيعُ', bn: 'আস-সামি', meaning: 'সর্বশ্রোতা (যিনি গোপন কথাও শোনেন)।', fazilat: 'বৃহস্পতিবার চাশতের নামাজের পর ৫০০ বার পড়লে দোয়া দ্রুত কবুল হয়।'},
+  {id: 28, ar: 'الْبَصِيرُ', bn: 'আল-বাসীর', meaning: 'সর্বদ্রষ্টা (যিনি সবকিছু দেখেন)।', fazilat: 'জুমার সালাতের পর ১০০ বার পাঠ করলে চোখের জ্যোতি ও অন্তরের দৃষ্টি খোলে।'},
+  {id: 29, ar: 'الْحَكَمُ', bn: 'আল-হাকাম', meaning: 'পরম মীমাংসাকারী বা শ্রেষ্ঠ বিচারক।', fazilat: 'শেষ রাতে ওযু অবস্থায় ৯৯ বার পাঠ করলে আল্লাহ তার অন্তরকে রহস্যের খনি বানান।'},
+  {id: 30, ar: 'الْعَدْلُ', bn: 'আল-আদল', meaning: 'পরম ন্যায়পরায়ণ।', fazilat: 'জুমার রাতে রুটির ওপর লিখে খেলে মানুষ তার কথার অনুগত ও বাধ্য হয়।'},
+  {id: 31, ar: 'اللَّطِيفُ', bn: 'আল-লাতীফ', meaning: 'পরম সূক্ষ্মদর্শী বা অতি দয়ালু।', fazilat: '১৩৩ বার পাঠ করলে রিজিক বৃদ্ধি পায় এবং জীবনের কঠিন জট মুহূর্তেই খুলে যায়।'},
+  {id: 32, ar: 'الْخَبِيرُ', bn: 'আল-খাবীর', meaning: 'সর্বজ্ঞ বা সম্যক অবগত।', fazilat: '৭ দিন ধরে একনাগাড়ে বেশি বেশি জিকির করলে মনের গোপন ও সত্য স্বপ্ন প্রকাশ পায়।'},
+  {id: 33, ar: 'الْحَلِيمُ', bn: 'আল-হালীম', meaning: 'পরম সহনশীল বা মহাধৈর্যশীল।', fazilat: 'কাগজে লিখে ফসলে বা ঘরে রাখলে তা সমস্ত প্রাকৃতিক দুর্যোগ থেকে রক্ষা পায়।'},
+  {id: 34, ar: 'الْعَظِيمُ', bn: 'আল-আযীউম', meaning: 'সর্বোচ্চ মহান, মহিমান্বিত।', fazilat: 'বেছি বেশি জিকির করলে মানুষের ভয় দূর হয় এবং চারপাশের মানুষের ভালোবাসা পাওয়া যায়।'},
+  {id: 35, ar: 'الْغَفُورُ', bn: 'আল-গাফুর', meaning: 'পরম ক্ষমাশীল।', fazilat: 'মাথাব্যথা বা জ্বর হলে এটি কাগজে লিখে মাথায় রাখলে বা বেশি জিকির করলে রোগ কমে।'},
+  {id: 36, ar: 'الشَّكُورُ', bn: 'আশ-শাকুর', meaning: 'गुणগ্রাহী বা পরম পুরস্কারদাতা।', fazilat: 'মানসিক কষ্ট বা অর্থনৈতিক সংকটের সময় ৪আই বার পানিতে ফুঁ দিয়ে খেলে স্বস্তি আসে।'},
+  {id: 37, ar: 'الْعَلِيُّ', bn: 'আল-আলী', meaning: 'উচ্চমর্যাদাশীল, পরম উন্নত।', fazilat: 'নিয়মিত লিখে কাছে রাখলে ও জিকির করলে মানুষের ভাগ্য সুপ্রসন্ন ও উন্নত হয়।'},
+  {id: 38, ar: 'الْكَبِيرُ', bn: 'আল-কাবীর', meaning: 'সবচেয়ে বড়, মহত্তম।', fazilat: 'চাকরি বা ব্যবসা থেকে বরখাস্ত হওয়া ব্যক্তি ৭ দিন রোজা রেখে ১০০১ বার পড়লে পদ ফিরে পাবেন।'},
+  {id: 39, ar: 'الْحَفِيظُ', bn: 'আল-হাফীয', meaning: 'মহা রক্ষক।', fazilat: 'যেকোনো বিপদে বা সফরের সময় ১৬ বার পাঠ করলে চোর, ডাকাত ও দুর্ঘটনা থেকে বাঁচা যায়।'},
+  {id: 40, ar: 'الْمُقِيتُ', bn: 'আল-মুকীৎ', meaning: 'সকলের জীবনোপকরণ দাতা।', fazilat: 'খালি মাটির পাত্রে ৭১ বার পড়ে তাতে পানি ঢেলে বাচ্চাদের খাওয়ালে মেধা তীক্ষ্ণ হয়।'},
+  {id: 41, ar: 'الْحَسِيبُ', bn: 'আল-হাসীব', meaning: 'পরম হিসাবগ্রহণকারী।', fazilat: 'শত্রুর হাত থেকে বাঁচতে বৃহস্পতিবার থেকে সকাল-সন্ধ্যা ৭০ বার হাসবিয়াল্লাহুল হাসীব পড়তে হয়।'},
+  {id: 42, ar: 'الْجَلِيلُ', bn: 'আল-জালীল', meaning: 'مহামহিম, পরম মর্যাদাবান।', fazilat: 'জাফরান দিয়ে কাগজে লিখে কাছে রাখলে মানুষের মাঝে ইজ্জত ও সম্মান বহুগুণ বৃদ্ধি পায়।'},
+  {id: 43, ar: 'الْكَرِيمُ', bn: 'আল-করীম', meaning: 'مহা দয়ালু বা পরম দাতা।', fazilat: 'ঘুমানোর আগে বেশি বেশি পাঠ করলে ফেরেশতারা তার জন্য কল্যাণের দোয়া করেন।'},
+  {id: 44, ar: 'الرَّقِيبُ', bn: 'আর-রকীব', meaning: 'মহাপর্যবেক্ষক, সদা জাগ্রত তদারককারী।', fazilat: 'পরিবার বা সম্পদের ওপর ৭ বার পড়ে ফুঁ দিলে চোর ও জানমালের ক্ষতি থেকে রক্ষা মেলে।'},
+  {id: 45, ar: 'الْمُجِيبُ', bn: 'আল-মুতীব', meaning: 'দোয়া কবুলকারী বা সাড়াদানকারী।', fazilat: 'যেকোনো বৈধ দোয়া চাওয়ার আগে ও পরে এই নাম বেশি জিকির করলে দোয়া দ্রুত কবুল হয়।'},
+  {id: 46, ar: 'الْوَاسِعُ', bn: 'আল-ওয়াসি', meaning: 'অসীম, সর্বব্যাপী।', fazilat: 'বেছি বেশি জিকির করলে মনের সংকীর্ণতা দূর হয় এবং উপার্জনে বরকত খোলে।'},
+  {id: 47, ar: 'الْحَكِيمُ', bn: 'আল-হাকীম', meaning: 'পরম প্রজ্ঞাময় বা মহাজ্ঞানী Im।', fazilat: 'নিয়মিত জিকির করলে সব কাজে বুদ্ধি খোলে এবং কাজে ভুলত্রুটি হওয়া বন্ধ হয়।'},
+  {id: 48, ar: 'الْوَدُودُ', bn: 'আল-ওয়াদূদ', meaning: 'প্রেমময় বা পরম ভালোবাসার অধিকারী।', fazilat: '১০০০ বার খাবারে ফুঁ দিয়ে স্বামী-স্ত্রী একসাথে খেলে পারস্পরিক মহব্বত গভীর হয়।'},
+  {id: 49, ar: 'الْمَجِيدُ', bn: 'আল-মাজীদ', meaning: 'মহিমান্বিত বা পরম গৌরবান্বিত।', fazilat: 'আরবি মাসের ১৩, ১৪ ও ১৫ তারিখে রোজা রেখে এটি বেশি পড়লে শ্বেত বা কুষ্ঠ রোগ সারে।'},
+  {id: 50, ar: 'الْبَاعِثُ', bn: 'আল-বাইছ', meaning: 'পুনরুত্থানকারী।', fazilat: 'ঘুমানোর সময় বুকে হাত রেখে ১০১ বার পড়লে অন্তরে খোদাভীতি ও তাকওয়া বাড়ে।'},
+  {id: 51, ar: 'الشَّهِيدُ', bn: 'আশ-শাহীদ', meaning: 'সর্বত্র উপস্থিত বা সম্যক সাক্ষী।', fazilat: 'অবাধ্য সন্তান বা স্ত্রীর কপালে হাত রেখে ভোরে ২১ বার পড়লে তারা নেককার হয়।'},
+  {id: 52, ar: 'الْحَقُّ', bn: 'আল-হাক্ক', meaning: 'পরম সত্য ও চিরস্থায়ী।', fazilat: 'কোনো জিনিস হারিয়ে গেলে চারকোণা কাগজে লিখে মাঝরাতে হাত তুলে দোয়া করলে তা মেলে।'},
+  {id: 53, ar: 'الْوَكِيلُ', bn: 'আল-ওয়াকীল', meaning: 'পরম ভরসাযোগ্য কর্মবিধায়ক।', fazilat: 'ঝড়-তুফান বা যেকোনো প্রাকৃতিক দুর্যোগের সময় বেশি পড়লে নিরাপত্তা পাওয়া যায়।'},
+  {id: 54, ar: 'الْقَوِيُّ', bn: 'আল-কউই', meaning: 'মহাশক্তিশালী।', fazilat: 'দুর্বল বা মাজলুম ব্যক্তি শত্রুর হাত থেকে রক্ষা পেতে এই নাম বেশি জিকির করবেন।'},
+  {id: 55, ar: 'الْمَتِينُ', bn: 'আল-মাতীন', meaning: 'পরম সুদৃঢ় বা অটল।', fazilat: 'স্তন্যদাত্রী মায়ের বুকের দুধ কম হলে পানিতে ফুঁ দিয়ে খাওয়ালে দুধের পরিমাণ বাড়ে।'},
+  {id: 56, ar: 'الْوَلِيُّ', bn: 'আল-অলী', meaning: 'পরম বন্ধু ও সাহায্যকারী।', fazilat: 'নিয়মিত জিকির করলে ব্যক্তি আল্লাহর বিশেষ ওলী বা প্রিয় বান্দায় পরিণত হন।'},
+  {id: 57, ar: 'الْحَمِيدُ', bn: 'আল-হামীদ', meaning: 'যাবতীয় প্রশংসার একমাত্র অধিকারী।', fazilat: 'একটানা ৪৫ দিন নির্জনে বসে জিকির করলে মুখের ভাষা মিষ্টি হয় এবং খারাপ স্বভাব দূর হয়।'},
+  {id: 58, ar: 'الْمُحْصِي', bn: 'আল-মুহসী', meaning: 'সকল সৃষ্টির পুঙ্খানুপুঙ্খ হিসাব রক্ষক।', fazilat: 'প্রতিদিন ২০ বার রুটির টুকরোতে ফুঁ দিয়ে খেলে হিসাবের দিন আল্লাহর দয়া লাভ হবে।'},
+  {id: 59, ar: 'الْمُبْدِئُ', bn: 'আল-মুবদি', meaning: 'প্রথমবার সৃষ্টিকর্তা।', fazilat: 'গর্ভবতী নারীর পেটে হাত রেখে ৯৯ বার পড়লে গর্ভপাত বা সন্তান নষ্ট হওয়ার ভয় থাকে না।'},
+  {id: 60, ar: 'الْمُعِيدُ', bn: 'আল-মুইদ', meaning: 'পুনরায় সৃষ্টিকর্তা।', fazilat: 'কোনো ব্যক্তি নিখোঁজ হলে ঘরের চারকোণে গভীর রাতে এই নাম পড়ে ডাকলে সে ফিরে আসে।'},
+  {id: 61, ar: 'الْمُحْيِي', bn: 'আল-মুহয়ী', meaning: 'জীবনদাতা।', fazilat: 'অসুস্থ ব্যক্তি প্রতিদিন নিয়মিত জিকির করলে দীর্ঘস্থায়ী রোগ থেকে মুক্তি পান।'},
+  {id: 62, ar: 'الْمُمِيتُ', bn: 'আল-মুমীত', meaning: 'মৃত্যুদাতা।', fazilat: 'নফস বা মন কুপ্রবৃত্তির দিকে ঝুঁকলে ঘুমানোর সময় বুকে হাত রেখে পড়লে মন পবিত্র হয়।'},
+  {id: 63, ar: 'الْحَيُّ', bn: 'আল-হাইয়্যু', meaning: 'চিরঞ্জীব (যাঁর কোনো ধ্বংস নেই)।', fazilat: 'প্রতিদিন নিয়মিত ৩০০০ বার পড়লে কখোনো কোনো কঠিন বা দীর্ঘস্থায়ী অসুখ হবে না।'},
+  {id: 64, ar: 'الْقَيُّومُ', bn: 'আল-কাইয়্যুম', meaning: 'স্বয়ংসম্পূর্ণ, বিশ্বচরাচরের নিয়ন্ত্রক।', fazilat: 'সূর্যোদয়ের সময় জিকির করলে অলসতা দূর হয় এবং মানুষের মাঝে আকর্ষণ বাড়ে।'},
+  {id: 65, ar: 'الْوَاجِدُ', bn: 'আল-ওয়াজিদ', meaning: 'যাঁর কোনো কিছুর অভাব নেই, ধনী।', fazilat: 'খাবার খাওয়ার সময় প্রতি লোকমায় এই নাম মনে মনে পড়লে অন্তরের আলো বৃদ্ধি পায়।'},
+  {id: 66, ar: 'الْمَاجِدُ', bn: 'আল-মাজিদ', meaning: 'শ্রেষ্ঠত্বের অধিকারী বা মহান।', fazilat: 'নির্জনে একাকী এই নাম জিকির করলে অন্তরে আল্লাহর সরাসরি ইশকের আলো পয়দা হয়।'},
+  {id: 67, ar: 'الْوَاحِدُ', bn: 'আল-ওয়াহিদ', meaning: 'এক ও অদ্বিতীয়।', fazilat: 'নির্জন কোনো স্থানে ১০০০ বার পাঠ করলে মন থেকে একা থাকার সব ভয় কেটে যায়।'},
+  {id: 68, ar: 'الصَّمَدُ', bn: 'আস-সামাদ', meaning: 'অমুখাপেক্ষী (সবাই যাঁর মুখাপেক্ষী)।', fazilat: 'সেজদায় গিয়ে বা শেষ রাতে জিকির করলে আল্লাহ দুনিয়ার মানুষের মুখাপেক্ষী করেন না।'},
+  {id: 69, ar: 'الْقَادِرُ', bn: 'আল-কাদির', meaning: 'সর্বশক্তিমান।', fazilat: 'দুই রাকাত নফল নামাজ শেষে ১০০ বার পড়লে শত্রুর চাল বা চক্রান্ত ব্যর্থ হয়ে যায়।'},
+  {id: 70, ar: 'الْمُقْتَدِرُ', bn: 'আল-مুকতাদির', meaning: 'মহাশক্তির অধিকারী বা চূড়ান্ত নিয়ন্ত্রক।', fazilat: 'ঘুম থেকে উঠে বেশি বেশি এই নাম পাঠ করলে দিনভর সব কাজ সহজ হয়ে যায়।'},
+  {id: 71, ar: 'الْمُقَدِّمُ', bn: 'আল-মুকাদ্দিম', meaning: 'অগ্রবর্তীকারী (যিনি যাকে ইচ্ছা এগিয়ে দেন)।', fazilat: 'যুদ্ধক্ষেত্রে বা যেকোনো প্রতিযোগিতার মাঠে বেশি বেশি পড়লে জয়লাভ সহজ হয়।'},
+  {id: 72, ar: 'الْمُؤَخِّرُ', bn: 'আল-মুআখখির', meaning: 'পশ্চাদবর্তীকারী (যিনি যাকে ইচ্ছা পেছনে ফেলেন)।', fazilat: 'নিয়মিত জিকির করলে অন্তরে খাঁটি তওবা নসিব হয় এবং পাপের ইচ্ছা মরে যায়।'},
+  {id: 73, ar: 'الأوَّلُ', bn: 'আল-আউয়াল', meaning: 'সর্বপ্রথম (যাঁর পূর্বে কিছুই ছিল না)।', fazilat: 'সন্তান লাভের আশায় এই নাম প্রতিদিন ৪০ বার করে পাঠ করলে আল্লাহ আশা পূরণ করেন।'},
+  {id: 74, ar: 'الأخِرُ', bn: 'আল-আখির', meaning: 'সর্বশেষ (সবকিছুর বিনাশের পরও যিনি থাকবেন)।', fazilat: 'প্রতিদিন ১০১ বার পড়লে মৃত্যুর সময় ঈমানের সাথে শেষ নিঃশ্বাস ত্যাগ করা নসিব হয়।'},
+  {id: 75, ar: 'الظَّاهِرُ', bn: 'আয-জাহির', meaning: 'সম্পূর্ণ প্রকাশ্য।', fazilat: 'ইশরাকের নামাজের পর ৫০০ বার পড়লে চোখের যেকোনো সূক্ষ্ম রোগ ও অন্ধত্ব থেকে বাঁচা যায়।'},
+  {id: 76, ar: 'الْبَاطِنُ', bn: 'আল-বাতিন', meaning: 'সম্পূর্ণ গোপন।', fazilat: 'প্রতিদিন ৩ বার আল-আউয়ালুিয়াল আখিরু ওয়াজ জাহিরুিয়াল বাতিনু পড়লে কুচিন্তা দূর হয়।'},
+  {id: 77, ar: 'الْوَالِي', bn: 'আল-ওয়ালী', meaning: 'পরম অভিভাবক বা পরিচালক।', fazilat: 'মাটির পাত্রে পানি নিয়ে এই নাম পড়ে ঘরে ছিটিয়ে দিলে ঘর সব আপদ থেকে নিরাপদ থাকে।'},
+  {id: 78, ar: 'الْمُتَعَالِي', bn: 'আল-মুতায়ালী', meaning: 'সর্বোচ্চ সুউচ্চ বা পরম পবিত্র।', fazilat: 'নারীরা ঋতুস্রাবের কষ্ট থেকে রেহাই পেতে এটি বেশি বেশি জিকির করতে পারেন।'},
+  {id: 79, ar: 'الْبَرُّ', bn: 'আল-বার্রু', meaning: 'পরম কল্যাণময় ও সদাচারী।', fazilat: 'নবজাতক শিশুর ওপর ৭ বার পড়ে ফুঁ দিলে সে বড় হয়ে বাবা-মার বাধ্য সন্তান হয়।'},
+  {id: 80, ar: 'التَّوَّابُ', bn: 'আত-তাওয়াব', meaning: 'তওবা কবুলকারী।', fazilat: 'চাশতের নামাজের পর ৩৬০ বার পড়লে খাঁটি অন্তরে তওবা করার তৌফিক মেলে।'},
+  {id: 81, ar: 'الْمُنْتَقِمُ', bn: 'আল-মুনতাকিম', meaning: 'উপযুক্ত প্রতিশোধ গ্রহণকারী।', fazilat: 'কোনো জালেম বা শত্রুর বিরুদ্ধে সত্যের লড়াইতে ৩ জুম্মা বেশি পড়লে আল্লাহ জয় দেন।'},
+  {id: 82, ar: 'الْعَفُوُّ', bn: 'আল-আফুউ', meaning: 'পরম ক্ষমাশীল (যিনি পাপের চিহ্নও মুছে দেন)।', fazilat: 'বেসি বেশি জিকির করলে নিজের সমস্ত কবিরা ও সগিরা গুনাহ মাফ হওয়ার পথ খোলে।'},
+  {id: 83, ar: 'الرَّؤُوفُ', bn: 'আর-রউফ', meaning: 'পরম স্নেহশীল বা অতি দয়াশীল।', fazilat: 'দরূদ শরীফ পড়ার পর এই নাম ১০ বার পড়লে রাগী মানুষের রাগ মুহূর্তেই পানি হয়ে যায়।'},
+  {id: 84, ar: 'مَالِكُ الْمُلْكِ', bn: 'মালিকুল মুলক', meaning: 'সমগ্র মহাবিশ্বের চিরস্থায়ী মালিক।', fazilat: 'নিয়মিত জিকির করলে আল্লাহ তাকে মানুষের পরমুখাপেক্ষিতা থেকে ধনী করে দেন।'},
+  {id: 85, ar: 'ذُو الْجَلاَلِ وَالإكْرَامِ', bn: 'জুল জালালি ওয়াল ইকরাম', meaning: 'মহিমাময় ও মহানুভবতার একমাত্র উৎস।', fazilat: 'রাসূলুল্লাহ (সা.) বলেছেন: তোমরা এই নাম ধরে বেশি বেশি আল্লাহর কাছে দোয়া চাও।'},
+  {id: 86, ar: 'الْمُقْسِطُ', bn: 'আল-মুকসিত', meaning: 'ন্যায়পরায়ণ বা সুষম বন্টনকারী।', fazilat: 'শয়তানের যেকোনো ওয়াসওয়াসা বা কুচিন্তা থেকে বাঁচতে এটি বেশি পড়তে হয়।'},
+  {id: 87, ar: 'الْجَامِعُ', bn: 'আল-জামি', meaning: 'একত্রকারী (যিনি কিয়ামতে সবাইকে জড়ো করবেন)।', fazilat: 'কোনো আত্মীয় বা আপনজন হারিয়ে গেলে বা পালিয়ে গেলে জিকির করলে সন্ধান মেলে।'},
+  {id: 88, ar: 'الْغَنِيُّ', bn: 'আল-গনিই', meaning: 'পরম ধনী বা স্বয়ংসম্পূর্ণ।', fazilat: 'অসুস্থ বা অভাবী ব্যক্তি শরীরে হাত রেখে জিকির করলে রোগ ও দারিদ্র্য দূর হয়।'},
+  {id: 89, ar: 'الْمُغْنِي', bn: 'আল-মুগনি', meaning: 'ধনীকারী (যিনি যাকে ইচ্ছা ধনী বানান)।', fazilat: 'বিছানায় শুয়ে মনে মনে ১০০০ বার জিকির করলে স্বামী-স্ত্রীর মধ্যকার ঝামেলা দূর হয়।'},
+  {id: 90, ar: 'الْمَانِعُ', bn: 'আল-মানি', meaning: 'প্রতিরোধকারী বা রক্ষক।', fazilat: 'পালিকবারিক বা দাম্পত্য কলহ দূর করতে ঘুমানোর আগে ২০ বার পাঠ করা উচিত।'},
+  {id: 91, ar: 'الضَّارُّ', bn: 'আদ-দাররু', meaning: 'ক্ষতি করার অধিকারী (আল্লাহর হুকুম ছাড়া কেউ পারে না)।', fazilat: 'জুমার রাতে ১০০ বার পাঠ করলে মানুষের আত্মিক উন্নতি ঘটে এবং অনিষ্ট দূর হয়।'},
+  {id: 92, ar: 'النَّافِعُ', bn: 'আন-ناফি', meaning: 'কল্যাণকারী বা উপকার কর্তা।', fazilat: 'কোনো কাজে হাত দেওয়ার আগে বা যাত্রাপথে ৪১ বার পড়লে সেই কাজে নিশ্চিত লাভ হয়।'},
+  {id: 93, ar: 'النُّورُ', bn: 'আন-নূর', meaning: 'পরম জ্যোতি বা আলো।', fazilat: 'জুমার রাতে সূরা নূরের সাথে এই নাম জিকির করলে অন্তর খোদার নূরে ভরে যায়।'},
+  {id: 94, ar: 'الْهَادِي', bn: 'আল-হাদী', meaning: 'পথপ্রদর্শক বা হেদায়েতকারী।', fazilat: 'আকাশের দিকে হাত তুলে বেশি বেশি জিকির করলে পথভ্রষ্ট মানুষ সঠিক হেদায়েত পায়।'},
+  {id: 95, ar: 'الْبَدِيعُ', bn: 'আল-বাদী', meaning: 'অনন্য ও অতুলনীয় সৃষ্টিকর্তা।', fazilat: 'যেকোনো কঠিন মুসিবতে ইয়া বাদী আল আজায়িব ১০০০ বার পড়লে মুসিবত দূর হয়।'},
+  {id: 96, ar: 'الْبَاقِي', bn: 'আল-বাকী', meaning: 'চিরস্থায়ী ও চিরবিদ্যমান।', fazilat: 'জুমার রাতে ১০০০ বার পাঠ করলে আল্লাহ তার সমস্ত নেক আমল কবুল করে নেন।'},
+  {id: 97, ar: 'الْوَارِثُ', bn: 'আল-ওয়ারিছ', meaning: 'চূড়ান্ত উত্তরাধিকারী।', fazilat: 'সূর্যোদয়ের সময় ১০০ বার পাঠ করলে কবরের আজাব ও দুনিয়ার ভয় থেকে মুক্তি মেলে।'},
+  {id: 98, ar: 'الرَّشِيدُ', bn: 'আর-রশীদ', meaning: 'সৎপথের নির্দেশক বা পরম পরিচালক।', fazilat: 'মাগরিব ও এশার মাঝখানে ১০০০ বার পড়লে বন্ধ হয়ে যাওয়া ব্যবসা আবার চালু হয়।'},
+  {id: 99, ar: 'الصَّبُورُ', bn: 'আস-সাবুর', meaning: 'পরম ধৈর্যশীল।', fazilat: 'সূর্যোদয়ের পূর্বে ১০০ বার পাঠ করলে আল্লাহ দুনিয়ার সমস্ত কঠিন মুসিবত থেকে বাঁচান।'}
+];
+
+function renderNames() {
+  const container = document.getElementById("namesContainer");
+  if(container) {
+    container.innerHTML = namesData.map(n => `
+      <div class="name-full-card" id="name-card-${n.id}">
+        <div class="name-header">
+          <span class="name-num">${n.id}</span>
+          <p class="name-arabic">${n.ar}</p>
+        </div>
+        <h4 class="name-bangla">${n.bn}</h4>
+        <p class="name-meaning"><b>অর্থ:</b> ${n.meaning}</p>
+        <div class="name-fazilat">💡 <b>ফজিলত:</b> ${n.fazilat}</div>
+      </div>
+    `).join('');
+  }
+}
+
+function filterNames(val) {
+  val = val.toLowerCase().trim();
+  namesData.forEach(n => {
+    const card = document.getElementById(`name-card-${n.id}`);
+    if (card) {
+      if (n.bn.toLowerCase().includes(val) || n.ar.includes(val) || n.meaning.toLowerCase().includes(val)) {
+        card.style.display = "flex";
+      } else {
+        card.style.display = "none";
+      }
+    }
+  });
+}
+
+/* QURAN INTEGRATION */
+const surahSelect = document.getElementById("surahSelect");
+let ar = [], bn = [];
+fetch("https://api.alquran.cloud/v1/surah")
+  .then(r => r.json()).then(d => {
+    if(surahSelect) {
+      d.data.forEach(s => { surahSelect.innerHTML += `<option value="${s.number}">${s.number}. ${s.englishName}</option>`; });
+    }
+  });
+
+function loadSurah() {
+  let n = surahSelect.value; if(!n) return;
+  const padded = String(n).padStart(3, '0');
+  document.getElementById("quranAudio").src = `https://server8.mp3quran.net/afs/${padded}.mp3`;
+  document.getElementById("audioTitle").innerText = "🔊 অডিও: " + surahSelect.options[surahSelect.selectedIndex].text;
+  document.getElementById("audioPlayerBox").style.display = "block";
+  document.getElementById("quranText").innerHTML = "<p>লোড হচ্ছে...</p>";
+
+  Promise.all([
+    fetch(`https://api.alquran.cloud/v1/surah/${n}`).then(r => r.json()),
+    fetch(`https://api.alquran.cloud/v1/surah/${n}/bn.bengali`).then(r => r.json())
+  ]).then(([a, b]) => {
+    ar = a.data.ayahs; bn = b.data.ayahs;
+    renderQuran();
+  });
+}
+
+function renderQuran() {
+  let html = "";
+  for(let i=0; i<ar.length; i++) {
+    html += `<div style="border-bottom:1px solid var(--border); padding:15px 0;">
+      <p class="arabic">${ar[i].text}</p>
+      <p style="font-size:13px;">${bn[i].text}</p>
+    </div>`;
+  }
+  document.getElementById("quranText").innerHTML = html;
+}
+
+function searchQuran(v) {
+  if(!ar.length) return; v = v.toLowerCase(); let html = "";
+  for(let i=0; i<ar.length; i++) {
+    if(bn[i].text.toLowerCase().includes(v)) {
+      html += `<div style="border-bottom:1px solid var(--border); padding:15px 0;"><p class="arabic">${ar[i].text}</p><p style="font-size:13px;">${bn[i].text}</p></div>`;
+    }
+  }
+  document.getElementById("quranText").innerHTML = html || "<p>পাওয়া যায়নি</p>";
+}
+
+// Initial functions on Load
+window.onload = function() {
+  loadTracker();
+  renderNames();
+};
+</script>
+
+</body>
+</html>
