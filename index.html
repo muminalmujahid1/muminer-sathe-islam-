@@ -256,54 +256,55 @@ select, input[type="text"], input[type="number"] { width: 100%; padding: 12px; b
     </div>
   </div>
 
-  <!-- HADIS PAGE -->
-  <div id="hadis" class="page">
+ <!-- HADIS PAGE -->
+<div id="hadis" class="page">
     <div class="category-box">
-      <button class="btn active" onclick="switchSub('hadis', 'h-iman', this)">ঈমান ও নিয়ত</button>
-      <button class="btn" onclick="switchSub('hadis', 'h-namaz', this)">নামাজ</button>
-      <button class="btn" onclick="switchSub('hadis', 'h-akhlaq', this)">চরিত্র</button>
+        <button class="btn active" onclick="switchSub('hadis', 'h-iman', this)">ঈমান ও নিয়ত</button>
+        <button class="btn" onclick="switchSub('hadis', 'h-namaz', this)">নামাজ</button>
+        <button class="btn" onclick="switchSub('hadis', 'h-akhlaq', this)">চরিত্র</button>
     </div>
-  <!-- ঈমান ও নিয়ত ক্যাটাগরি -->
-<div id="h-iman" class="sub-content active">
-  <div class="card">
-    <h3>📜 ঈমান সম্পর্কিত হাদিস</h3>
-    <div class="data-item">
-      <h4>১. আমলের আসল ভিত্তি</h4>
-      <p>“নিশ্চয়ই সকল কাজ নিয়তের উপর নির্ভরশীল।” (বুখারী: ১)</p>
-      <button class="bookmark-btn" onclick="saveBookmark('হাদিস: নিয়তের ওপর আমল')">📌 Bookmark</button>
-    </div>
-    <div class="data-item">
-      <h4>২. প্রকৃত মুসলিমের পরিচয়</h4>
-      <p>“প্রকৃত মুসলিম সেই ব্যক্তি, যার জিহ্বা ও হাত থেকে অন্য মুসলিম নিরাপদ থাকে।” (বুখারী: ১০)</p>
-      <button class="bookmark-btn" onclick="saveBookmark('হাদিস: মুসলিমের পরিচয়')">📌 Bookmark</button>
-    </div>
-  </div>
-</div>
 
-<!-- নামাজ ক্যাটাগরি -->
-<div id="h-namaz" class="sub-content">
-  <div class="card">
-    <h3>📜 নামাজ সম্পর্কিত হাদিস</h3>
-    <div class="data-item">
-      <h4>১. চোখের শীতলতা</h4>
-      <p>“আমার চোখের শীতলতা রাখা হয়েছে নামাজের মধ্যে।” (নাসাঈ)</p>
-      <button class="bookmark-btn" onclick="saveBookmark('হাদিস: চোখের শীতলতা নামাজ')">📌 Bookmark</button>
+    <!-- ঈমান ও নিয়ত ক্যাটাগরি -->
+    <div id="h-iman" class="sub-content active">
+        <div class="card">
+            <h3>📜 ঈমান সম্পর্কিত হাদিস</h3>
+            <div class="data-item">
+                <h4>১. আমলের আসল ভিত্তি</h4>
+                <p>“নিশ্চয়ই সকল কাজ নিয়তের উপর নির্ভরশীল।” (বুখারী: ১)</p>
+                <button class="bookmark-btn" onclick="saveBookmark('হাদিস: নিয়তের ওপর আমল')">📌 Bookmark</button>
+            </div>
+            <div class="data-item">
+                <h4>২. প্রকৃত মুসলিমের পরিচয়</h4>
+                <p>“প্রকৃত মুসলিম সেই ব্যক্তি, যার জিহ্বা ও হাত থেকে অন্য মুসলিম নিরাপদ থাকে।” (বুখারী: ১০)</p>
+                <button class="bookmark-btn" onclick="saveBookmark('হাদিস: মুসলিমের পরিচয়')">📌 Bookmark</button>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 
-<!-- চরিত্র ক্যাটাগরি -->
-<div id="h-akhlaq" class="sub-content">
-  <div class="card">
-    <h3>📜 চরিত্র</h3>
-    <div class="data-item">
-      <h4>১. উত্তম চরিত্র</h4>
-      <p>“কিয়ামতের দিন উত্তম চরিত্রের চেয়ে ভারী আর কোনো আমল থাকবে না।” (তিরমিযী)</p>
-      <button class="bookmark-btn" onclick="saveBookmark('হাদিস: উত্তম চরিত্র মিযানের ভারী আমল')">📌 Bookmark</button>
+    <!-- নামাজ ক্যাটাগরি -->
+    <div id="h-namaz" class="sub-content">
+        <div class="card">
+            <h3>📜 নামাজ সম্পর্কিত হাদিস</h3>
+            <div class="data-item">
+                <h4>১. চোখের শীতলতা</h4>
+                <p>“আমার চোখের শীতলতা রাখা হয়েছে নামাজের মধ্যে।” (নাসাঈ)</p>
+                <button class="bookmark-btn" onclick="saveBookmark('হাদিস: চোখের শীতলতা নামাজ')">📌 Bookmark</button>
+            </div>
+        </div>
     </div>
-  </div>
+
+    <!-- চরিত্র ক্যাটাগরি -->
+    <div id="h-akhlaq" class="sub-content">
+        <div class="card">
+            <h3>📜 চরিত্র</h3>
+            <div class="data-item">
+                <h4>১. উত্তম চরিত্র</h4>
+                <p>“কিয়ামতের দিন উত্তম চরিত্রের চেয়ে ভারী আর কোনো আমল থাকবে না।” (তিরমিযী)</p>
+                <button class="bookmark-btn" onclick="saveBookmark('হাদিস: উত্তম চরিত্র মিযানের ভারী আমল')">📌 Bookmark</button>
+            </div>
+        </div>
+    </div>
 </div>
-  <!-- MASALA PAGE -->
   <div id="masala" class="page">
     <div class="category-box">
       <button class="btn active" onclick="switchSub('masala', 'm-pobitro', this)">ওযু ও পবিত্রতা</button>
