@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#0b5d46">
+<meta name="theme-color" content="#0b5d46">\n<meta name="description" content="সহজভাবে আরবি হরফ শিখুন, উচ্চারণ শুনুন এবং শেখার অগ্রগতি সংরক্ষণ করুন।">
 <title>মুমিনের সাথে ইসলাম</title>
 <style>
 :root{--green:#0b5d46;--green2:#087653;--gold:#d6ad55;--bg:#f4f7f4;--card:#fff;--ink:#18332a;--muted:#687a72;--line:#e2ebe5}
@@ -33,7 +33,40 @@ select,button{font:inherit}select{width:100%;padding:12px;border:1px solid var(-
 .time span{display:block;color:var(--muted);font-size:13px}.time strong{font-size:20px;color:var(--green)}
 .forbidden{border:1px solid #f0d9d2;background:#fff8f5;border-radius:13px;padding:12px;margin-top:10px}
 .forbidden b{color:#9a422e}.foot{font-size:12px;color:var(--muted);text-align:center;margin:22px 0}
+
+.course-hero{background:linear-gradient(135deg,#084c3a,#0b7656);color:#fff;border:0;overflow:hidden;position:relative}
+.course-hero h2{color:#fff;font-size:22px}.course-hero .sub{color:#d9eee5}
+.course-kicker{font-size:12px;letter-spacing:.4px;color:#f1d58e;font-weight:800;margin-bottom:5px}
+.progress-head{display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:13px;margin-top:17px}
+.progress-head strong{color:#ffe6a6}.progress-track{height:10px;background:#ffffff35;border-radius:20px;overflow:hidden;margin-top:9px}
+#progressFill{height:100%;width:0;background:linear-gradient(90deg,#f0cf78,#ffe9b2);border-radius:20px;transition:width .5s ease}
+.progress-note{font-size:12px;color:#e4f3eb;margin:7px 0 0}
+.lesson-heading{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.reset-btn{border:1px solid var(--line);background:#fff;color:var(--muted);border-radius:10px;padding:8px 10px;font-size:12px;white-space:nowrap}
+.letters{direction:rtl;grid-template-columns:repeat(4,minmax(0,1fr))}
+.letter{position:relative;cursor:pointer;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;animation:riseIn .42s both;min-width:0}
+.letter:active{transform:scale(.96)}.letter:focus-visible{outline:3px solid #d6ad55;outline-offset:2px}
+.letter.selected{border-color:var(--gold);background:#fff9e9;box-shadow:0 5px 16px #8d6b231c}
+.letter.learned{background:#eef8f0;border-color:#9bc9a8}
+.letter .ar{font-size:37px}.letter .check-mark{position:absolute;top:5px;left:7px;width:19px;height:19px;border-radius:50%;background:#16804e;color:white;font-size:12px;display:none;line-height:19px}
+.letter.learned .check-mark{display:block}
+.letter .tap-hint{font-size:10px;color:var(--muted);display:block;margin-top:3px}
+@keyframes riseIn{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
+.lesson-detail{min-height:180px}.detail-empty{text-align:center;padding:14px 5px}
+.empty-icon{display:inline-grid;place-items:center;width:42px;height:42px;border-radius:50%;background:#f7f1df;color:#9a772f;font-size:23px}
+.detail-top{display:flex;align-items:center;gap:14px}
+.detail-letter{width:82px;height:88px;display:grid;place-items:center;border-radius:17px;background:#f1f8f3;color:#07553f;font-family:"Noto Naskh Arabic","Amiri",serif;font-size:57px;flex-shrink:0}
+.detail-title{flex:1}.detail-title h2{font-size:21px;margin-bottom:2px}.detail-title p{margin:0;color:var(--muted);font-size:13px}
+.detail-pron{background:#f8faf8;border:1px solid var(--line);border-radius:13px;padding:12px;margin:14px 0}
+.detail-pron strong{font-size:17px;color:var(--green)}
+.detail-actions{display:flex;gap:9px;flex-wrap:wrap}
+.audio-btn{border:1px solid #cfe2d6;background:#eff8f2;color:var(--green);border-radius:11px;padding:10px 13px;font-weight:700}
+.learn-btn{border:0;background:var(--green);color:#fff;border-radius:11px;padding:10px 14px;font-weight:700}
+.learn-btn.done{background:#e8f5eb;color:#176b3a;border:1px solid #b8ddc1}
+.articulation{font-size:13px;color:#42584e;margin:10px 0 0}
 @media(min-width:600px){.letters{grid-template-columns:repeat(7,1fr)}.prayer-grid{grid-template-columns:repeat(5,1fr)}}
+@media(max-width:360px){.letters{grid-template-columns:repeat(3,minmax(0,1fr))}.lesson-heading{display:block}.reset-btn{margin:-4px 0 12px}}
+
 </style>
 </head>
 <body>
@@ -46,10 +79,24 @@ select,button{font:inherit}select{width:100%;padding:12px;border:1px solid var(-
 </nav>
 
 <section id="learn" class="panel active">
+<div class="card course-hero">
+  <div class="course-kicker">শুরু করুন একদম প্রথম থেকে</div>
+  <h2>আরবি হরফ শেখার কোর্স</h2>
+  <p class="sub">একটি হরফ দেখুন, নাম শুনুন, অনুশীলন করুন—শেখা হলে টিক দিন।</p>
+  <div class="progress-head"><b>আপনার শেখার অগ্রগতি</b><strong id="progressText">০ / ২৮টি শেখা</strong></div>
+  <div class="progress-track"><div id="progressFill"></div></div>
+  <p class="progress-note" id="progressNote">আজ প্রথম হরফটি দিয়ে শুরু করুন।</p>
+</div>
 <div class="card">
-<h2>আরবি হরফ পরিচিতি</h2><p class="sub">প্রথমে হরফগুলো চিনুন এবং নাম মনে রাখুন।</p>
-<div class="letters" id="letters"></div>
-<div class="notice">এখানে হরফের নাম দেওয়া হয়েছে। হরফের সঠিক মাখরাজ ও উচ্চারণ শিক্ষক/কারির কাছ থেকে শুনে শিখুন।</div>
+  <div class="lesson-heading">
+    <div><h2>হরফের তালিকা</h2><p class="sub">ডান দিক থেকে শুরু করুন। যেকোনো হরফে চাপ দিন।</p></div>
+    <button class="reset-btn" id="resetProgress" type="button">আবার শুরু</button>
+  </div>
+  <div class="letters" id="letters" dir="rtl"></div>
+  <div class="notice">মনে রাখবেন: বাংলা উচ্চারণটি শেখার সহায়ক মাত্র। আরবি হরফের সঠিক মাখরাজ ও শব্দের সূক্ষ্মতা শিখতে নির্ভরযোগ্য কারি/শিক্ষকের তিলাওয়াত শুনে অনুশীলন করুন।</div>
+</div>
+<div class="card lesson-detail" id="letterDetail" aria-live="polite">
+  <div class="detail-empty"><span class="empty-icon">✦</span><h2>একটি হরফ বেছে নিন</h2><p class="sub">হরফে চাপ দিলে এখানে তার নাম, উচ্চারণ ও শেখার নির্দেশনা আসবে।</p></div>
 </div>
 </section>
 
@@ -89,36 +136,78 @@ select,button{font:inherit}select{width:100%;padding:12px;border:1px solid var(-
 </main>
 <script>
 const letters=[
-["ا","আলিফ"],
-["ب","বা"],
-["ت","তা"],
-["ج","জীম"],
-["ح","হা"],
-["خ","খ"],
-["د","দাল"],
-["ذ","যাল"],
-["ر","র"],
-["ز","যা"],
-["س","সীন"],
-["ش","শীন"],
-["ص","সোয়াদ"],
-["ض","দোয়াদ"],
-["ط","ত"],
-["ظ","যো"],
-["ع","আইন"],
-["غ","গয়ন"],
-["ف","ফা"],
-["ق","ক্ফ"],
-["ك","কাফ"],
-["ل","লাম"],
-["م","মীম"],
-["ن","নূন"],
-["و","ওয়াও"],
-["ه","হা"],
-["ء","হামজা"],
-["ي","ইয়া"]
+ ["ا","আলিফ","আ-লিফ","আলিফের নাম ‘আলিফ’। এটি লম্বা সোজা দাগের মতো।","ا"],
+ ["ب","বা","বা","দুই ঠোঁট মিলিয়ে ‘ব’ ধ্বনি। নিচে একটি বিন্দু আছে।","بَ"],
+ ["ت","তা","তা","জিহ্বার আগা ওপরের সামনের দাঁতের গোড়ার কাছে এনে ‘ত’ বলুন। ওপরে দুই বিন্দু।","تَ"],
+ ["ج","জীম","জীম","বাংলা ‘জ’-এর কাছাকাছি ধ্বনি। মুখের মাঝামাঝি অংশে জিহ্বা উঁচু হয়।","جَ"],
+ ["ح","হা","হা","গলার মাঝখান থেকে নিঃশ্বাসের সঙ্গে গভীর, ঘর্ষণযুক্ত হা উচ্চারণ হয়।","حَ"],
+ ["خ","খ","খ","গলার ওপরের দিক থেকে ঘর্ষণযুক্ত ‘খ’ ধ্বনি; সাধারণ বাংলা খ-এর চেয়ে আলাদা।","خَ"],
+ ["د","দাল","দাল","জিহ্বার আগা ওপরের সামনের দাঁতের গোড়ায় লাগিয়ে ‘দ’ বলুন।","دَ"],
+ ["ذ","যাল","যাল","জিহ্বার আগা সামনের দাঁতের কিনারায় এনে নরম ‘য/ধ’-এর মাঝামাঝি ধ্বনি করুন।","ذَ"],
+ ["ر","র","র","জিহ্বার আগা ওপরের মাড়ির কাছে হালকা কাঁপিয়ে বলুন।","رَ"],
+ ["ز","যা","যা","জিহ্বা দাঁতের কাছাকাছি রেখে গুঞ্জনযুক্ত ‘য/জ়’ ধ্বনি করুন।","زَ"],
+ ["س","সীন","সীন","দাঁতের ফাঁক দিয়ে বাতাস ছেড়ে পরিষ্কার ‘স’ ধ্বনি করুন।","سَ"],
+ ["ش","শীন","শীন","বাংলা ‘শ’-এর মতো; জিহ্বার সামনের অংশ তালুর দিকে তুলুন।","شَ"],
+ ["ص","সোয়াদ","সোয়াদ","ভারী ‘স’ ধ্বনি। জিহ্বার পেছনের অংশ উঁচু করে উচ্চারণ করুন।","صَ"],
+ ["ض","দোয়াদ","দোয়াদ","ভারী ‘দ’ ধ্বনি; জিহ্বার পাশের অংশ ওপরের পেছনের দাঁতের সঙ্গে লাগে।","ضَ"],
+ ["ط","ত্","ত্","ভারী ‘ত’ ধ্বনি; জিহ্বার পেছনের অংশ উঁচু রাখুন।","طَ"],
+ ["ظ","যো","যো","ভারী ‘য/ধ’-জাতীয় ধ্বনি; জিহ্বার আগা দাঁতের কিনারায় থাকে।","ظَ"],
+ ["ع","আইন","আইন","গলার মাঝখান সংকুচিত করে স্বর বের হয়। এটি বাংলা ‘আ’ নয়।","عَ"],
+ ["غ","গয়ন","গয়ন","গলার ওপরের অংশে ঘর্ষণ তৈরি করে উচ্চারণ করুন; গরগর ধ্বনির মতো।","غَ"],
+ ["ف","ফা","ফা","ওপরের দাঁত নিচের ঠোঁটে হালকা ছুঁইয়ে ‘ফ’ বলুন।","فَ"],
+ ["ق","কফ","কফ","জিহ্বার একেবারে পেছনের অংশ নরম তালুর কাছে তুলে গভীর ‘ক্ব’ ধ্বনি করুন।","قَ"],
+ ["ك","কাফ","কাফ","জিহ্বার পেছনের অংশ দিয়ে সাধারণ ‘ক’-এর কাছাকাছি ধ্বনি করুন।","كَ"],
+ ["ل","লাম","লাম","জিহ্বার আগা ওপরের মাড়িতে লাগিয়ে ‘ল’ বলুন।","لَ"],
+ ["م","মীম","মীম","দুই ঠোঁট বন্ধ করে নাকের অনুরণনে ‘ম’ বলুন।","مَ"],
+ ["ن","নূন","নূন","জিহ্বার আগা ওপরের মাড়িতে লাগিয়ে নাসিক্য ‘ন’ বলুন।","نَ"],
+ ["و","ওয়াও","ওয়াও","এটি হরফের নাম ওয়াও; শব্দে কখনো ‘ও/উ’ ধ্বনি বোঝায়।","وَ"],
+ ["ه","হা","হা","গলার নিচের দিক থেকে হালকা নিঃশ্বাসের ‘হ’ ধ্বনি করুন।","هَ"],
+ ["ء","হামজা","হামজা","কণ্ঠনালিতে ক্ষণিক বিরতি দিয়ে স্বর শুরু হয়—এটি হামজার ধ্বনি।","ءَ"],
+ ["ي","ইয়া","ইয়া","জিহ্বার মাঝখান তালুর দিকে তুলে ‘ইয়’ ধ্বনি করুন।","يَ"]
 ];
-document.getElementById("letters").innerHTML=letters.map(([a,b])=>`<div class="letter"><div class="ar" lang="ar">${a}</div><b>${b}</b></div>`).join("");
+const learnedLetters=new Set(JSON.parse(localStorage.getItem("arabicLettersLearned")||"[]"));
+let selectedLetter=-1;
+const bnDigits=n=>String(n).replace(/\d/g,d=>"০১২৩৪৫৬৭৮৯"[Number(d)]);
+function updateProgress(){
+ const count=learnedLetters.size, total=letters.length, pct=count/total*100;
+ document.getElementById("progressText").textContent=`${bnDigits(count)} / ${bnDigits(total)}টি শেখা`;
+ document.getElementById("progressFill").style.width=pct+"%";
+ document.getElementById("progressNote").textContent=count===total?"মাশাআল্লাহ! সবগুলো হরফ শেখা সম্পন্ন হয়েছে।":count===0?"আজ প্রথম হরফটি দিয়ে শুরু করুন।":`আর ${bnDigits(total-count)}টি হরফ শিখলেই কোর্সটি সম্পন্ন হবে।`;
+}
+function renderLetters(){
+ document.getElementById("letters").innerHTML=letters.map(([a,b],i)=>`<button type="button" class="letter ${learnedLetters.has(i)?"learned":""} ${selectedLetter===i?"selected":""}" data-letter="${i}" aria-label="${b} হরফ" style="animation-delay:${Math.min(i,14)*25}ms"><span class="check-mark">✓</span><div class="ar" lang="ar">${a}</div><b>${b}</b><small class="tap-hint">${learnedLetters.has(i)?"শেখা হয়েছে":"দেখতে চাপ দিন"}</small></button>`).join("");
+ document.querySelectorAll(".letter").forEach(btn=>btn.addEventListener("click",()=>showLetter(Number(btn.dataset.letter))));
+ updateProgress();
+}
+function showLetter(i){
+ selectedLetter=i;const [glyph,name,say,tip,sample]=letters[i],done=learnedLetters.has(i);
+ document.getElementById("letterDetail").innerHTML=`<div class="detail-top"><div class="detail-letter" lang="ar">${glyph}</div><div class="detail-title"><h2>${bnDigits(i+1)}. ${name}</h2><p>হরফের নাম ও শেখার অনুশীলন</p></div></div>
+ <div class="detail-pron"><div class="sub">বাংলা উচ্চারণ</div><strong>${say}</strong><div class="articulation">${tip}</div></div>
+ <div class="detail-pron"><div class="sub">যবরসহ হরফের উদাহরণ</div><div class="arabic" style="font-size:36px;margin:0">${sample}</div><div class="articulation">এটি অনুশীলনের জন্য একটি ছোট উদাহরণ। শিক্ষক/কারির উচ্চারণ শুনে মিলিয়ে নিন।</div></div>
+ <div class="detail-actions"><button type="button" class="audio-btn" id="speakLetter">🔊 নাম শুনুন</button><button type="button" class="learn-btn ${done?"done":""}" id="markLearned">${done?"✓ শিখেছি":"শিখেছি — টিক দিন"}</button></div>`;
+ document.getElementById("speakLetter").addEventListener("click",speakSelectedName);
+ document.getElementById("markLearned").addEventListener("click",()=>{
+   if(learnedLetters.has(i))learnedLetters.delete(i);else learnedLetters.add(i);
+   localStorage.setItem("arabicLettersLearned",JSON.stringify([...learnedLetters]));
+   renderLetters();showLetter(i);
+ });
+ renderLetters();
+}
+function speakSelectedName(){
+ if(selectedLetter<0)return;
+ if(!("speechSynthesis" in window)){alert("এই ব্রাউজারে অডিও সুবিধা নেই।");return;}
+ speechSynthesis.cancel();
+ const utterance=new SpeechSynthesisUtterance(letters[selectedLetter][2]);
+ utterance.lang="bn-BD";utterance.rate=.78;utterance.pitch=1;
+ speechSynthesis.speak(utterance);
+}
+document.getElementById("resetProgress").addEventListener("click",()=>{
+ if(confirm("আপনার শেখার সব টিক মুছে আবার শুরু করবেন?")){
+  learnedLetters.clear();localStorage.removeItem("arabicLettersLearned");selectedLetter=-1;renderLetters();
+  document.getElementById("letterDetail").innerHTML='<div class="detail-empty"><span class="empty-icon">✦</span><h2>একটি হরফ বেছে নিন</h2><p class="sub">হরফে চাপ দিলে এখানে তার নাম, উচ্চারণ ও শেখার নির্দেশনা আসবে।</p></div>';
+ }
+});
+renderLetters();
 document.querySelectorAll(".tab").forEach(btn=>btn.addEventListener("click",()=>{
  document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",x===btn));
  document.querySelectorAll(".panel").forEach(x=>x.classList.toggle("active",x.id===btn.dataset.tab));
