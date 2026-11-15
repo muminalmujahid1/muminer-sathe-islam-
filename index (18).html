@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b5d46">
+<title>মুমিনের সাথে ইসলাম</title>
+<style>
+:root{--green:#0b5d46;--green2:#087653;--gold:#d6ad55;--bg:#f4f7f4;--card:#fff;--ink:#18332a;--muted:#687a72;--line:#e2ebe5}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,"Noto Sans Bengali",sans-serif;line-height:1.65}
+header{background:linear-gradient(135deg,#084c3a,#0b7656);color:#fff;padding:28px 18px 24px;text-align:center;border-radius:0 0 28px 28px}
+header h1{font-size:23px;margin:0 0 5px}header p{margin:0;color:#d8eee5;font-size:13px}
+.wrap{max-width:760px;margin:18px auto;padding:0 14px 35px}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding:4px 0 12px}
+.tab{border:1px solid var(--line);background:#fff;color:var(--green);border-radius:13px;padding:10px 14px;white-space:nowrap;font-weight:700}
+.tab.active{background:var(--green);color:white;border-color:var(--green)}
+.panel{display:none}.panel.active{display:block}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:17px;margin:0 0 14px;box-shadow:0 5px 18px #18332a0a}
+h2{font-size:19px;margin:0 0 6px;color:var(--green)}.sub{font-size:13px;color:var(--muted);margin:0 0 14px}
+.letters{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+.letter{background:#f5faf6;border:1px solid var(--line);border-radius:13px;padding:12px 5px;text-align:center}
+.letter .ar{font-family:"Noto Naskh Arabic","Amiri",serif;font-size:34px;line-height:1.5;color:#07553f}
+.letter b{display:block;font-size:14px}.letter small{color:var(--muted)}
+select,button{font:inherit}select{width:100%;padding:12px;border:1px solid var(--line);border-radius:12px;background:white;color:var(--ink);margin:8px 0}
+.ayah{border-bottom:1px solid var(--line);padding:15px 0}.ayah:last-child{border:0}
+.arabic{font-family:"Noto Naskh Arabic","Amiri",serif;font-size:29px;line-height:2.1;text-align:right;direction:rtl;color:#164b3a;margin:0 0 8px}
+.pron{background:#f8faf8;border-left:3px solid var(--gold);padding:9px 11px;border-radius:8px;font-size:14px;margin:7px 0}
+.meaning{font-size:14px;color:#42584e;margin:6px 0 0}
+.notice{font-size:12px;color:#78602b;background:#fff9e9;border:1px solid #f0e1b8;border-radius:11px;padding:10px;margin:12px 0}
+.btn{border:0;background:var(--green);color:white;border-radius:12px;padding:11px 15px;font-weight:700}
+.prayer-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+.time{background:#f6faf7;border:1px solid var(--line);border-radius:13px;padding:12px}
+.time span{display:block;color:var(--muted);font-size:13px}.time strong{font-size:20px;color:var(--green)}
+.forbidden{border:1px solid #f0d9d2;background:#fff8f5;border-radius:13px;padding:12px;margin-top:10px}
+.forbidden b{color:#9a422e}.foot{font-size:12px;color:var(--muted);text-align:center;margin:22px 0}
+@media(min-width:600px){.letters{grid-template-columns:repeat(7,1fr)}.prayer-grid{grid-template-columns:repeat(5,1fr)}}
+</style>
+</head>
+<body>
+<header><h1>মুমিনের সাথে ইসলাম</h1><p>সহজভাবে আরবি ও কুরআন শেখা · নামাজের সময় জানা</p></header>
+<main class="wrap">
+<nav class="tabs">
+<button class="tab active" data-tab="learn">আরবি শিক্ষা</button>
+<button class="tab" data-tab="quran">ছোট সূরা</button>
+<button class="tab" data-tab="prayer">নামাজের সময়</button>
+</nav>
+
+<section id="learn" class="panel active">
+<div class="card">
+<h2>আরবি হরফ পরিচিতি</h2><p class="sub">প্রথমে হরফগুলো চিনুন এবং নাম মনে রাখুন।</p>
+<div class="letters" id="letters"></div>
+<div class="notice">এখানে হরফের নাম দেওয়া হয়েছে। হরফের সঠিক মাখরাজ ও উচ্চারণ শিক্ষক/কারির কাছ থেকে শুনে শিখুন।</div>
+</div>
+</section>
+
+<section id="quran" class="panel">
+<div class="card">
+<h2>সূরা শেখা</h2><p class="sub">সূরা ফাতিহা ও ১০টি ছোট সূরা। প্রতিটি আয়াতের আরবি ও বাংলা অর্থ নির্ভরযোগ্য অনলাইন কুরআন ডেটা থেকে দেখানো হবে।</p>
+<select id="surahSelect" aria-label="সূরা নির্বাচন">
+<option value="1">১. সূরা আল-ফাতিহা</option>
+<option value="112">২. সূরা আল-ইখলাস</option>
+<option value="113">৩. সূরা আল-ফালাক</option>
+<option value="114">৪. সূরা আন-নাস</option>
+<option value="108">৫. সূরা আল-কাওসার</option>
+<option value="103">৬. সূরা আল-আসর</option>
+<option value="110">৭. সূরা আন-নাসর</option>
+<option value="111">৮. সূরা আল-মাসাদ</option>
+<option value="106">৯. সূরা কুরাইশ</option>
+<option value="105">১০. সূরা আল-ফীল</option>
+<option value="107">১১. সূরা আল-মাউন</option>
+</select>
+<button class="btn" id="loadSurah">সূরা দেখুন</button>
+<div id="quranResult"><p class="sub">একটি সূরা নির্বাচন করে “সূরা দেখুন” চাপুন।</p></div>
+<div class="notice">কুরআনের আরবি ও বাংলা অর্থ API থেকে লোড হয়; ইন্টারনেট প্রয়োজন। বাংলা উচ্চারণকে আরবির বিকল্প হিসেবে ব্যবহার করা ঠিক নয়। এই সংস্করণে ভুল উচ্চারণ লিখে দেওয়ার বদলে আরবি দেখে শিক্ষক/কারির সহায়তায় পড়ার পরামর্শ রাখা হয়েছে।</div>
+</div>
+</section>
+
+<section id="prayer" class="panel">
+<div class="card">
+<h2>আজকের নামাজের সময়</h2><p class="sub">ঢাকা বিভাগের টঙ্গী এলাকার আনুমানিক অবস্থান ধরে হিসাব।</p>
+<div id="prayerDate" class="sub">সময় লোড হচ্ছে…</div>
+<div class="prayer-grid" id="prayerTimes"></div>
+<div class="forbidden"><b>নামাজের নিষিদ্ধ/নিষেধের সময় (হানাফি)</b><div id="forbiddenTimes" class="sub">সময় লোড হচ্ছে…</div></div>
+<div class="notice">এগুলো গণনাভিত্তিক আনুমানিক সময়; স্থানীয় মসজিদ/ইসলামিক ফাউন্ডেশনের সময়সূচির সঙ্গে মিলিয়ে নিন। সূর্যোদয়, ঠিক দ্বিপ্রহরের জাওয়াল এবং সূর্যাস্তের সময় ফরজ/নফলসহ নামাজ আদায় নিষিদ্ধ। ফজরের পর সূর্যোদয় পর্যন্ত এবং আসরের পর সূর্যাস্ত পর্যন্ত নফল নামাজ থেকেও বিরত থাকুন।</div>
+<button class="btn" id="refreshPrayer">সময় আবার লোড করুন</button>
+</div>
+</section>
+<p class="foot">আল্লাহ আমাদের কুরআন শুদ্ধভাবে শেখা ও আমল করার তাওফিক দিন।</p>
+</main>
+<script>
+const letters=[
+["ا","আলিফ"],["ب","বা"],["ت","তা"],["ث","ছা"],["ج","জীম"],["ح","হা"],["خ","খা"],
+["د","দাল"],["ذ","যাল"],["ر","রা"],["ز","ঝা"],["س","সীন"],["ش","শীন"],["ص","সোয়াদ"],
+["ض","দোয়াদ"],["ط","ত্বা"],["ظ","য্বা"],["ع","আইন"],["غ","গইন"],["ف","ফা"],["ق","ক্বাফ"],
+["ك","কাফ"],["ل","লাম"],["م","মীম"],["ن","নূন"],["ه","হা"],["و","ওয়াও"],["ي","ইয়া"]
+];
+document.getElementById("letters").innerHTML=letters.map(([a,b])=>`<div class="letter"><div class="ar" lang="ar">${a}</div><b>${b}</b></div>`).join("");
+document.querySelectorAll(".tab").forEach(btn=>btn.addEventListener("click",()=>{
+ document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",x===btn));
+ document.querySelectorAll(".panel").forEach(x=>x.classList.toggle("active",x.id===btn.dataset.tab));
+}));
+const names={1:"আল-ফাতিহা",112:"আল-ইখলাস",113:"আল-ফালাক",114:"আন-নাস",108:"আল-কাওসার",103:"আল-আসর",110:"আন-নাসর",111:"আল-মাসাদ",106:"কুরাইশ",105:"আল-ফীল",107:"আল-মাউন"};
+async function loadSurah(){
+ const n=document.getElementById("surahSelect").value, out=document.getElementById("quranResult");
+ out.innerHTML='<p class="sub">লোড হচ্ছে…</p>';
+ try{
+  const [a,b]=await Promise.all([
+   fetch(`https://api.alquran.cloud/v1/surah/${n}/quran-uthmani`).then(r=>{if(!r.ok)throw Error();return r.json()}),
+   fetch(`https://api.alquran.cloud/v1/surah/${n}/bn.bengali`).then(r=>{if(!r.ok)throw Error();return r.json()})
+  ]);
+  if(!a.data?.ayahs||!b.data?.ayahs)throw Error();
+  out.innerHTML=`<h2>${names[n]}</h2>`+a.data.ayahs.map((v,i)=>`<article class="ayah"><p class="arabic" lang="ar">${v.text}</p><p class="meaning"><b>বাংলা অর্থ:</b> ${b.data.ayahs[i]?.text||"অর্থ পাওয়া যায়নি"}</p></article>`).join("");
+ }catch(e){out.innerHTML='<p>দুঃখিত, কুরআনের লেখা লোড হয়নি। ইন্টারনেট সংযোগ দেখে আবার চেষ্টা করুন।</p>'}
+}
+document.getElementById("loadSurah").addEventListener("click",loadSurah);
+async function loadPrayer(){
+ const box=document.getElementById("prayerTimes"), forb=document.getElementById("forbiddenTimes");
+ box.innerHTML="লোড হচ্ছে…";forb.textContent="লোড হচ্ছে…";
+ try{
+  const now=new Date(), day=String(now.getDate()).padStart(2,"0"),month=String(now.getMonth()+1).padStart(2,"0"),year=now.getFullYear();
+  const url=`https://api.aladhan.com/v1/timings/${day}-${month}-${year}?latitude=23.89&longitude=90.40&method=1&school=1`;
+  const res=await fetch(url);if(!res.ok)throw Error();const j=await res.json();const t=j.data.timings;
+  document.getElementById("prayerDate").textContent=j.data.date.readable+" · হিসাব: Karachi method, Hanafi Asr";
+  const keys=[["ফজর","Fajr","Sunrise"],["যোহর","Dhuhr","Asr"],["আসর","Asr","Maghrib"],["মাগরিব","Maghrib","Isha"],["ইশা","Isha","পরবর্তী ফজর"]];
+  box.innerHTML=keys.map(([bn,k,end])=>`<div class="time"><span>${bn}</span><strong>${t[k]}</strong><span>শেষ: ${end==="পরবর্তী ফজর"?"পরবর্তী দিনের ফজর":t[end]}</span></div>`).join("")+
+   `<div class="time"><span>সূর্যোদয়</span><strong>${t.Sunrise}</strong><span>নামাজের ওয়াক্ত নয়</span></div>`;
+  const add=(time,mins)=>{let [h,m]=time.split(":").map(Number);let d=new Date();d.setHours(h,m+mins,0,0);return d.toLocaleTimeString("bn-BD",{hour:"2-digit",minute:"2-digit",hour12:true})};
+  const sunriseEnd=add(t.Sunrise,20), sunsetStart=add(t.Sunset||t.Maghrib,-20);
+  const zawalStart=add(t.Dhuhr,-6);
+  forb.innerHTML=`<p><b>১. সূর্যোদয়ের সময়:</b> ${t.Sunrise} থেকে আনুমানিক ${sunriseEnd} পর্যন্ত</p><p><b>২. জাওয়ালের সময়:</b> যোহরের আগে আনুমানিক ${zawalStart} থেকে ${t.Dhuhr} পর্যন্ত</p><p><b>৩. সূর্যাস্তের সময়:</b> আনুমানিক ${sunsetStart} থেকে ${t.Maghrib} পর্যন্ত</p><p>ফজরের ফরজের পর থেকে সূর্যোদয় পর্যন্ত এবং আসরের ফরজের পর থেকে সূর্যাস্ত পর্যন্ত নফল নামাজ পড়া থেকে বিরত থাকুন।</p>`;
+ }catch(e){box.innerHTML="নামাজের সময় পাওয়া যায়নি। ইন্টারনেট সংযোগ পরীক্ষা করুন।";forb.textContent="সময় লোড করা যায়নি।"}
+}
+document.getElementById("refreshPrayer").addEventListener("click",loadPrayer);
+loadPrayer();
+</script>
+</body></html>
